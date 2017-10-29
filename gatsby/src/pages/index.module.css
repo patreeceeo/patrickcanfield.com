@@ -1,0 +1,22 @@
+
+.Header {
+  display: grid;
+  grid-template-columns: 0fr 1fr;
+}
+
+.Header_photo {
+  max-width: 200px;
+  min-width: 60px;
+  width: 15%;
+
+  /* in case grid layout is not supported */
+  float: left;
+
+  margin-right: 1rem;
+}
+
+.Title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
