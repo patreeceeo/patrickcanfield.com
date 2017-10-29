@@ -8,7 +8,7 @@ const IndexPage = () => (
         <img src={meImg} className={css.Header_photo} />
         <div>
             <h2 className={css.Title}>Patrick Canfield</h2>
-            <h4>art, ideas, food, misc</h4>
+            <h4>art, ideas, hacks, travel, etc.</h4>
         </div>
     </div>
 );
