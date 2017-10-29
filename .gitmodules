@@ -1,0 +1,3 @@
+[submodule "public/boggle"]
+	path = public/boggle
+	url = /Users/patrick/codez/boggle

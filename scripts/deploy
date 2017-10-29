@@ -1,5 +1,6 @@
 #!/usr/local/bin/zsh
 
 git add -f public
-git commit "deploy: $1"
-git subtree push --prefix public site master
+git commit -m "deploy: $1"
+ref=$(git subtree split --prefix=public --onto=site/master)
+git push -f site $ref:master
