@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "gatsby-plugin-typography": "^1.7.10"
+    "gatsby-plugin-typography": "^1.7.10",
+    "gatsby-remark-images": "^1.5.24",
+    "gatsby-remark-smartypants": "^1.4.8"
   }
 }

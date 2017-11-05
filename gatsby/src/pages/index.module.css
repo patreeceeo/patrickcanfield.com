@@ -20,3 +20,21 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.PostPreview {
+  color: inherit;
+  padding: 0.5rem 0;
+  margin: 0.5rem 0;
+  display: block;
+}
+.PostPreview:hover {
+  text-decoration: none;
+}
+.PostPreview h2 {
+  color: #D14200;
+}
+
+.ReadMore {
+  display: block;
+  text-align: right;
+}

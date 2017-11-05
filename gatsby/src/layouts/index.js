@@ -3,9 +3,14 @@ import PropTypes from 'prop-types';
 import Link from 'gatsby-link';
 import Helmet from 'react-helmet';
 import * as icons from '../favicons/index';
-
+import meImg from '../me-np.png';
+import neocitiesImg from '../neocities-logo.png';
+import gatsbyImg from '../gatsby-logo.svg';
+import './workaround';
 
 import './normalize.css';
+import './global.css';
+import css from './index.module.css';
 
 const TemplateWrapper = ({ children }) => (
   <div>
@@ -14,7 +19,7 @@ const TemplateWrapper = ({ children }) => (
       defaultTitle="Patrick Canfield"
       meta={[
         { name: 'description', content: 'Personal site of Patrick Canfield' },
-        { name: 'keywords', content: '' },
+        { name: 'keywords', content: 'blog personal art technology philosophy food travel' },
       ]}
     >
         <link rel="apple-touch-icon" sizes="180x180" href={icons.appleTouch}/>
@@ -24,8 +29,21 @@ const TemplateWrapper = ({ children }) => (
         <link rel="mask-icon" href={icons.safariPinnedTab} color="#5bbad5"/>
         <link rel="shortcut icon" href={icons.icoFormat}/>
         <meta name="apple-mobile-web-app-title" content="p.c."/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
         <meta name="application-name" content="p.c."/>
         <meta name="theme-color" content="#ffffff"/>
+
+        {/* Twitter Card data */}
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:title" content="Personal site of Patrick Canfield"/>
+        <meta name="twitter:creator" content="@pzatrick"/>
+
+        {/* Open Graph data */}
+        <meta property="og:site_name" content="Personal site of Patrick Canfield" />
+        <meta property="og:url" content="http://patrickcanfield.com/" />
+        <meta property="og:image" content={`http://patrickcanfield.com${meImg}`} />
+        <script>
+        </script>
     </Helmet>
     <div
       style={{
@@ -36,6 +54,10 @@ const TemplateWrapper = ({ children }) => (
       }}
     >
       {children()}
+    </div>
+    <div className={css.Credits}>
+        Proudly built with <img src={gatsbyImg}/> <a href="https://www.gatsbyjs.org">Gatsby</a> and hosted by <img src={neocitiesImg} /> <a href="https://neocities.org/site/patrickcan">Neocities</a>
+        <div><sub>Copyright &copy; 2017 Patrick Canfield</sub></div>
     </div>
   </div>
 );
