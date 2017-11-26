@@ -1,5 +1,6 @@
 #!/usr/local/bin/zsh
 
+rm -rf gatsby/public/*
 cd gatsby && gatsby build && cd ..
 neocities push public
 neocities push gatsby/public

@@ -5,7 +5,9 @@ module.exports = {
         siteUrl: `https://patrickcanfield.com`
     },
     plugins: [
+        `gatsby-plugin-react-helmet`,
         {
+
             resolve: `gatsby-plugin-feed`,
             options: {
                 query: `
@@ -85,7 +87,7 @@ module.exports = {
                             maxWidth: 800,
                             // Remove the default behavior of adding a link to each
                             // image.
-                            // linkImagesToOriginal: false,
+                            linkImagesToOriginal: false,
                         },
                     },
                     {
@@ -99,7 +101,7 @@ module.exports = {
                             // If you'd like to not use gatsby-remark-images and just copy your
                             // original images to the public directory, set
                             // `ignoreFileExtensions` to an empty array.
-                            ignoreFileExtensions: [],
+                            // ignoreFileExtensions: [],
                         },
                     }
                 ]
