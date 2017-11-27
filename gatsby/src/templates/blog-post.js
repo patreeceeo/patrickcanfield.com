@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactHTMLParser from 'react-html-parser';
 import Helmet from 'react-helmet';
 import Link from 'gatsby-link';
 
@@ -30,9 +31,27 @@ export default function Template({
                 <h1>{post.frontmatter.title}</h1>
                 <h4>
                     posted {post.frontmatter.date} in
-                    <i>{post.frontmatter.category || "life, the universe and everything"}</i>
+                    {" "}<i>{post.frontmatter.category || "life, the universe and everything"}</i>
                 </h4>
-                <div className="blog-post-content" dangerouslySetInnerHTML={{ __html: post.html }} />
+                <div className="blog-post-content">{ReactHTMLParser(post.html, {
+                    transform: (node) => { /*eslint-disable-line */
+                        const replaceWith = node.attribs && node.attribs['replace-with'];
+                        const propsName = node.attribs && node.attribs['props'];
+                        if(node.type === "tag") {
+                            if(replaceWith) {
+                                const componentIndex = require('../components/index');
+                                const propsIndex = require('../props/index');
+                                return React.createElement(
+                                    componentIndex[replaceWith],
+                                    {
+                                        ...propsIndex[propsName + replaceWith],
+                                        key: replaceWith
+                                    }
+                                );
+                            }
+                        }
+                    }
+                })}</div>
             </div>
         </div>
     );
