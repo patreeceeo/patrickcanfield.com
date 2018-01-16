@@ -57,7 +57,7 @@ const TemplateWrapper = ({ children }) => (
     </div>
     <div className={css.Credits}>
         Proudly built with <img src={gatsbyImg}/> <a href="https://www.gatsbyjs.org">Gatsby</a> and hosted by <img src={neocitiesImg} /> <a href="https://neocities.org/site/patrickcan">Neocities</a>
-        <div><sub>Copyright &copy; 2017 Patrick Canfield</sub></div>
+        <div><sub>Copyright &copy; 2018 Patrick Canfield</sub></div>
     </div>
   </div>
 );

@@ -7,6 +7,7 @@ import mapImage from '../blog/bikesgiving/map.gif';
 import berkeleyImage from '../blog/bikesgiving/berkeley.jpg';
 import berkeley2Image from '../blog/bikesgiving/berkeley2.jpg';
 import farmroadImage from '../blog/bikesgiving/farmroad.jpg';
+import farmroad2Image from '../blog/bikesgiving/farmroad2.jpg';
 import marshallImage from '../blog/bikesgiving/marshall.jpg';
 import napaImage from '../blog/bikesgiving/napa.jpg';
 import tamviewImage from '../blog/bikesgiving/tamview.jpg';
@@ -17,6 +18,7 @@ import santarosaImage from '../blog/bikesgiving/santarosa.jpg';
 import sabastopolImage from '../blog/bikesgiving/sabastopol.jpg';
 import stinsonImage from '../blog/bikesgiving/stinson.jpg';
 import stinson2Image from '../blog/bikesgiving/stinson2.jpg';
+import tomalesImage from '../blog/bikesgiving/tomales.jpg';
 
 const BikesgivingPhotoMap = {
     mapImage,
@@ -28,13 +30,13 @@ const BikesgivingPhotoMap = {
     photos: [
         {
             src: berkeley2Image,
-            latlong: [37.87, -122.28],
+            latlong: [37.87, -122.285],
             time: "Thursday, 9am",
             locationName: "Berkeley, CA"
         },
         {
             src: berkeleyImage,
-            latlong: [37.87, -122.28],
+            latlong: [37.87, -122.285],
             locationName: "Berkeley, CA",
             time: "Thursday, 9am",
             blurb: "0.01 miles into the ride! We sorta know what we're getting ourselves in to."
@@ -68,6 +70,9 @@ const BikesgivingPhotoMap = {
             blurb: ""
         },
         {
+            alt: "Day 2"
+        },
+        {
             src: sabastopolImage,
             latlong: [38.40, -122.84],
             time: "Friday, 10am",
@@ -82,6 +87,13 @@ const BikesgivingPhotoMap = {
             blurb: ""
         },
         {
+            src: farmroad2Image,
+            latlong: [38.28, -122.97],
+            time: "Friday, 12:30pm",
+            locationName: "Between Occidental and Point Reyes Station, CA",
+            blurb: ""
+        },
+        {
             src: marshallImage,
             latlong: [38.16, -122.94],
             time: "Friday, 2:30pm",
@@ -89,50 +101,60 @@ const BikesgivingPhotoMap = {
             blurb: "Postlunch naptime"
         },
         {
+            src: tomalesImage,
+            latlong: [38.0874, -122.86],
+            time: "Friday",
+            locationName: "",
+            blurb: ""
+        },
+        {
             src: pointReyesImage,
-            latlong: [38.06, -122.8],
+            latlong: [38.06, -122.85],
             time: "Friday, 3:30pm",
             locationName: "Point Reyes Station, CA",
             blurb: "We decide that's far enough for today, now where to stay??"
         },
         {
             src: abaloneImage,
-            latlong: [38.07, -122.83],
+            latlong: [38.06, -122.87],
             time: "Friday, 5pm",
             locationName: "Abalone Inn",
             blurb: ""
         },
         {
             src: abalone2Image,
-            latlong: [38.07, -122.83],
+            latlong: [38.06, -122.87],
             time: "Friday, 6pm",
             locationName: "Abalone Inn",
             blurb: "Hot tub!"
         },
         {
             src: abalone3Image,
-            latlong: [38.07, -122.83],
+            latlong: [38.06, -122.87],
             time: "Friday, 6pm",
             locationName: "Abalone Inn",
             blurb: "Garden path"
         },
         {
             src: abalone4Image,
-            latlong: [38.07, -122.83],
+            latlong: [38.06, -122.87],
             time: "Friday, 7pm",
             locationName: "Tap Room near Abalone Inn",
-            blurb: "Ordered the Heart's Desire then went to bed and immediately passed out"
+            blurb: "I order the &ldquo;Heart's Desire&rdquo; and so does Tom. It totally lives up to its name."
+        },
+        {
+            alt: "Day 3"
         },
         {
             src: stinsonImage,
-            latlong: [37.90, -122.64],
+            latlong: [37.89, -122.67],
             time: "Saturday Noon",
             locationName: "Stinson Beach, CA",
             blurb: "Loontime"
         },
         {
             src: stinson2Image,
-            latlong: [37.90, -122.64],
+            latlong: [37.89, -122.67],
             time: "Saturday 1pm",
             locationName: "Stinson Beach, CA",
             blurb: "Naptime"
@@ -143,6 +165,9 @@ const BikesgivingPhotoMap = {
             locationName: "Mount Tamalpais Summit",
             blurb: "center, far field: Home (San Francisco)"
         },
+        {
+            alt: "the end."
+        }
     ]
 };
 

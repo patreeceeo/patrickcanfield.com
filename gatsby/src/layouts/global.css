@@ -16,3 +16,12 @@ img {
 p {
   line-height: 1.5em;
 }
+
+.dropcap {
+  float: left;
+  font-size: 3.5em;
+  text-transform: lowercase;
+  margin-right: 0.1em;
+  margin-top: 0.15em;
+  font-style: italic;
+}

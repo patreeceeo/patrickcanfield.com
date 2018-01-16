@@ -61,7 +61,6 @@
 
   padding: 0;
 
-  cursor: inherit;
   box-shadow: none;
 
   background-color: transparent;
@@ -78,6 +77,27 @@
 
   background-color: transparent;
   transition: background-color 0.7s;
+}
+
+.PhotoMap .textSlide {
+  opacity: 0;
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  width: 100%;
+
+  transition: 0.5s opacity 0.7s linear;
+
+  text-align: center;
+  font-size: 5rem;
+  color: white;
+  font-style: italic;
+}
+
+.PhotoMap .textSlide.__zoom {
+  opacity: 1;
 }
 
 .PhotoMap.__zoom .backdrop {

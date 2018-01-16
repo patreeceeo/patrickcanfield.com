@@ -15,7 +15,7 @@
     "gatsby-plugin-sharp": "^1.6.15",
     "gatsby-plugin-typography": "^1.7.10",
     "gatsby-remark-copy-linked-files": "^1.5.21",
-    "gatsby-remark-images": "^1.5.26",
+    "gatsby-remark-images": "^1.5.36",
     "gatsby-remark-smartypants": "^1.4.8",
     "gatsby-source-filesystem": "^1.5.5",
     "gatsby-transformer-remark": "^1.7.18",

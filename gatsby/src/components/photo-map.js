@@ -1,6 +1,7 @@
 import Dimensions from './dimensions';
 import Icon from 'react-fontawesome';
 import React from 'react';
+import clamp from 'lodash.clamp';
 import css from './photo-map.module.css';
 import cx from 'classnames';
 import faStyles from 'font-awesome/css/font-awesome.css';
@@ -36,12 +37,13 @@ export class PhotoMap extends React.Component {
         setTimeout(() => {
             this.setState({fixClipping: true});
         }, 1500);
+        document.addEventListener("keyup", this.handleKeyPress);
     }
 
     handleClickPhoto = (index) => {
-        this.setState({
-            zoomPhotoIndex: index
-        });
+        this.setState(({zoomPhotoIndex}) => ({
+            zoomPhotoIndex: index === zoomPhotoIndex ? clamp(zoomPhotoIndex + 1, this.props.photos.length - 1) : index
+        }));
     }
 
     handleClickClose = () => {
@@ -52,43 +54,34 @@ export class PhotoMap extends React.Component {
 
     handleKeyPress = (e) => {
         this.setState(({zoomPhotoIndex}) => {
-            const delta = e.keyCode === 37 ? -1 : 1;
-            const maxIndex = this.props.photos.length - 1;
             if(e.keyCode === 27) {
                 return { zoomPhotoIndex: -1 };
             }
-            return { zoomPhotoIndex: zoomPhotoIndex + delta < 0
-                ? maxIndex
-                : zoomPhotoIndex + delta > maxIndex
-                    ? 0
-                    : zoomPhotoIndex + delta
-            };
+            const delta = e.keyCode === 37 ? -1 : [39, 32, 13].indexOf(e.keyCode) >= 0 ? 1 : 0;
+            const maxIndex = this.props.photos.length - 1;
+            return { zoomPhotoIndex: clamp(zoomPhotoIndex + delta, -1, maxIndex) };
         });
-    }
-
-    handleClickRoot = () => {
-        document.addEventListener("keyup", this.handleKeyPress);
     }
 
     renderCaption () {
         if(this.state.zoomPhotoIndex >= 0) {
             const { locationName, time, blurb } = this.props.photos[this.state.zoomPhotoIndex];
-            return (
+            return locationName || blurb ? (
                 <div className={css.caption}>
                     <h4 className={css.location}>
                         {time || "Unknown"}
                         {" "}<Icon name="map-marker"/> {locationName || "Unknown"}
                     </h4>
-                    {" "}<span className={css.blurb}>{blurb}</span>
+                    {" "}<span className={css.blurb} dangerouslySetInnerHTML={{__html:blurb}}/>
                 </div>
-            );
+            ) : null;
         }
     }
 
-    renderPhoto = ({src, latlong }, index) => {
+    renderPhoto = ({src, latlong, alt }, index) => {
         const [width, height] = this.props.mapSize.pixel;
         const { zoomPhotoIndex, fixClipping } = this.state;
-        const [x,y] = getPixelCoords(latlong, this.props.mapCoords[0], this.props.mapCoords[1]);
+        const [x,y] = latlong ? getPixelCoords(latlong, this.props.mapCoords[0], this.props.mapCoords[1]) : [];
 
         const photoWidth = width / 25;
 
@@ -105,7 +98,11 @@ export class PhotoMap extends React.Component {
         return (
             <div
                 key={src}
-                className={cx(css.photoThumb, {[css.__zoom]: zoomPhotoIndex === index})}
+                className={cx({
+                    [css.__zoom]: zoomPhotoIndex === index,
+                    [css.photoThumb]: src,
+                    [css.textSlide]: !src && alt
+                })}
                 style={zoomPhotoIndex === index ? {} : {
                     width: `${photoWidth}px`,
                     height: `${photoWidth}px`,
@@ -115,6 +112,7 @@ export class PhotoMap extends React.Component {
                 onClick={() => this.handleClickPhoto(index)}
             >
                 <div className={css.photo} style={{backgroundImage: `url(${src})`}}/>
+                { !src && alt && zoomPhotoIndex === index ? alt : null }
             </div>
         );
     }
