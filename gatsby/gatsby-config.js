@@ -1,7 +1,7 @@
 module.exports = {
     siteMetadata: {
         title: `Personal site of Patrick Canfield`,
-        description: `The best site on the interwebs`,
+        description: ``,
         siteUrl: `https://patrickcanfield.com`
     },
     plugins: [
