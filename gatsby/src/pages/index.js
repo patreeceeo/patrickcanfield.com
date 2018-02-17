@@ -14,13 +14,13 @@ const Posts = ({data}) => {
                             <Link
                                 key={post.id}
                                 className={css.PostPreview}
-                                to={post.frontmatter.path}
+                                to={`${post.frontmatter.path}/`}
                             >
                                 <h2>
                                     {post.frontmatter.title}
                                 </h2>
                                 <p>{post.excerpt}</p>
-                                <Link className={css.ReadMore} to={post.frontmatter.path}>read more &raquo;</Link>
+                                <div className={css.ReadMore}>read more &raquo;</div>
                             </Link>
                         );
                     })}

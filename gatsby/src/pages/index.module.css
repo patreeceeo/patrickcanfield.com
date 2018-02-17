@@ -37,4 +37,8 @@
 .ReadMore {
   display: block;
   text-align: right;
+  color: #D14200;
+}
+.ReadMore:hover {
+  text-decoration: underline;
 }

@@ -5,6 +5,10 @@ import Link from 'gatsby-link';
 
 import styles from './blog-post.module.css'; // make it pretty!
 
+const makeLoader = (requireContext) => (filePath) => {
+    return require.context(requireContext, true)('./' + filePath);
+};
+
 export default function Template({
     data // this prop will be injected by the GraphQL query we'll write in a bit
 }) {
@@ -25,6 +29,9 @@ export default function Template({
                 <meta property="og:type" content="article" />
                 <meta property="og:description" content={post.excerpt} />
                 <meta property="og:site_name" content="Patrick Canfield's blog" />
+
+                {/* for mapbox maps */}
+                <link href="https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css" rel="stylesheet" />
             </Helmet>
             <div className={styles.blog_post}>
                 <h5><Link to="/">&laquo; 🏠 home</Link> &mdash; there's more where that came from.</h5>
@@ -39,12 +46,12 @@ export default function Template({
                         const propsName = node.attribs && node.attribs['props'];
                         if(node.type === "tag") {
                             if(replaceWith) {
-                                const componentIndex = require('../components/index');
-                                const propsIndex = require('../props/index');
+                                const componentLoader = makeLoader('../components/index');
+                                const propsLoader = makeLoader('../props/index');
                                 return React.createElement(
-                                    componentIndex[replaceWith],
+                                    componentLoader(replaceWith),
                                     {
-                                        ...propsIndex[propsName + replaceWith],
+                                        ...propsLoader(propsName + replaceWith),
                                         key: replaceWith
                                     }
                                 );

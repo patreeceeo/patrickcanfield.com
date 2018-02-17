@@ -5,6 +5,7 @@ module.exports = {
         siteUrl: `https://patrickcanfield.com`
     },
     plugins: [
+        `gatsby-plugin-sharp`, // for gatsby-remark-images
         `gatsby-plugin-react-helmet`,
         {
 
@@ -78,18 +79,18 @@ module.exports = {
             options: {
                 plugins: [
                     `gatsby-remark-smartypants`,
-                    {
-                        resolve: `gatsby-remark-images`,
-                        options: {
-                            // It's important to specify the maxWidth (in pixels) of
-                            // the content container as this plugin uses this as the
-                            // base for generating different widths of each image.
-                            maxWidth: 800,
-                            // Remove the default behavior of adding a link to each
-                            // image.
-                            linkImagesToOriginal: false,
-                        },
-                    },
+                    // {
+                    //     resolve: `gatsby-remark-images`,
+                    //     options: {
+                    //         // It's important to specify the maxWidth (in pixels) of
+                    //         // the content container as this plugin uses this as the
+                    //         // base for generating different widths of each image.
+                    //         maxWidth: 800,
+                    //         // Remove the default behavior of adding a link to each
+                    //         // image.
+                    //         linkImagesToOriginal: true,
+                    //     },
+                    // },
                     {
                         resolve: 'gatsby-remark-copy-linked-files',
                         options: {
@@ -101,7 +102,7 @@ module.exports = {
                             // If you'd like to not use gatsby-remark-images and just copy your
                             // original images to the public directory, set
                             // `ignoreFileExtensions` to an empty array.
-                            // ignoreFileExtensions: [],
+                            ignoreFileExtensions: [],
                         },
                     }
                 ]

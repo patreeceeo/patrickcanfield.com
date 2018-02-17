@@ -15,6 +15,5 @@ I recently splurged on an iPad Pro because of the ease with which it lets me mak
 
 This one is dedicated to my Uncle’s mother, who I’ve had the pleasure of meeting at two weddings in the past couple of years, and her family. Know that y’all have been in my thoughts and prayers lately.
 
-<div>
-<img src="https://patrickcanfield.com/static/rosebird-b8a55c69441c7ed872049f6c1b77e030-90c66.png">
-</div>
+![pastel and ink on iPad](rosebird.jpg)
+
