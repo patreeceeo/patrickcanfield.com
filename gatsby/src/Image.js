@@ -1,1 +1,1 @@
-export default this.Image;
+export default window.Image;

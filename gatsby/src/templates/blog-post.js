@@ -5,10 +5,6 @@ import Link from 'gatsby-link';
 
 import styles from './blog-post.module.css'; // make it pretty!
 
-const makeLoader = (requireContext) => (filePath) => {
-    return require.context(requireContext, true)('./' + filePath);
-};
-
 export default function Template({
     data // this prop will be injected by the GraphQL query we'll write in a bit
 }) {
@@ -46,12 +42,12 @@ export default function Template({
                         const propsName = node.attribs && node.attribs['props'];
                         if(node.type === "tag") {
                             if(replaceWith) {
-                                const componentLoader = makeLoader('../components/index');
-                                const propsLoader = makeLoader('../props/index');
+                                const componentIndex = require('../components/index');
+                                const propsIndex = require('../props/index');
                                 return React.createElement(
-                                    componentLoader(replaceWith),
+                                    componentIndex[replaceWith],
                                     {
-                                        ...propsLoader(propsName + replaceWith),
+                                        ...propsIndex[propsName + replaceWith],
                                         key: replaceWith
                                     }
                                 );
