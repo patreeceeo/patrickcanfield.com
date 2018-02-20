@@ -65,6 +65,16 @@ jest.mock('../Image', () => {
     };
 });
 
+jest.mock('./dimensions', () => {
+    const React = require('react');
+    class Dimensions extends React.Component {
+        render () {
+            return this.props.children({width: 800, height: 0});
+        }
+    }
+    return Dimensions;
+});
+
 import React from 'react';
 import { PhotoMap2 } from './photo-map2';
 import mapboxgl from 'mapbox-gl';
@@ -121,5 +131,14 @@ describe("PhotoMap2", () => {
             }));
             done();
         });
+    });
+
+    it("maintains specified height/width ratio", () => {
+        const component = renderer.create(<PhotoMap2
+            photos={[]}
+            aspectRatio={1.62}
+        />);
+
+        expect(component.toJSON().props.style.height).toBe(`${800/1.62}px`);
     });
 });

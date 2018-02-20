@@ -20,6 +20,8 @@
     "gatsby-remark-smartypants": "^1.4.8",
     "gatsby-source-filesystem": "^1.5.5",
     "gatsby-transformer-remark": "^1.7.18",
+    "lodash.maxby": "^4.6.0",
+    "lodash.minby": "^4.6.0",
     "lodash.omit": "^4.5.0",
     "lodash.sum": "^4.0.2",
     "mapbox-gl": "^0.44.1",
@@ -45,6 +47,7 @@
   },
   "devDependencies": {
     "babel-jest": "^22.2.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "jest": "^22.3.0",

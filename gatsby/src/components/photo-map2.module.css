@@ -1,0 +1,42 @@
+.PhotoMarker {
+  background-color: white;
+  padding: 4px;
+
+  position: relative;
+}
+
+.PhotoMarker:before {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 4px solid transparent;
+  border-top: 4px solid white;
+
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  margin-left: -4px;
+  /* in front of shadow */
+  z-index: 1;
+}
+
+.PhotoMarker:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 4px solid transparent;
+  border-top: 4px solid rgba(0,0,0,0.2);
+
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  margin-left: -4px;
+
+  transform: skew(-33deg);
+}
+
+.PhotoMarker .photo {
+  max-width: 64px;
+  max-height: 64px;
+  display: block;
+}
