@@ -40,3 +40,13 @@
   max-height: 64px;
   display: block;
 }
+
+.PhotoMarker .cornerbox {
+  color: white;
+  background-color: rgba(0,0,0,0.5);
+  padding: 0 4px;
+
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+}

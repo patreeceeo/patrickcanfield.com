@@ -1,11 +1,12 @@
 import Dimensions from './dimensions';
+import { DBSCAN } from 'density-clustering';
 import EXIF from 'exif-js';
-import Helmet from 'react-helmet';
 import Image from '../Image';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import css from './photo-map2.module.css';
 import cx from 'classnames';
+import throttle from 'lodash.throttle';
 import mapboxgl from 'mapbox-gl';
 import sum from 'lodash.sum';
 import max from 'lodash.maxby';
@@ -24,21 +25,24 @@ const convertToDecimalDegrees = ([degrees, minutes, seconds]) => {
     return degrees + minutes / 60 + seconds / (60 * 60);
 };
 
-const getCenter = (exifs) => {
+const convertExifToLngLat = ({
+    GPSLongitudeRef,
+    GPSLongitude,
+    GPSLatitudeRef,
+    GPSLatitude
+}) => {
     return [
-        sum(exifs.map(({
-            GPSLongitudeRef,
-            GPSLongitude
-        }) => {
-            return mapRefToSign[GPSLongitudeRef] * convertToDecimalDegrees(GPSLongitude);
-        })) / exifs.length,
+        mapRefToSign[GPSLongitudeRef] * convertToDecimalDegrees(GPSLongitude),
+        mapRefToSign[GPSLatitudeRef] * convertToDecimalDegrees(GPSLatitude)
+    ];
+};
 
-        sum(exifs.map(({
-            GPSLatitudeRef,
-            GPSLatitude
-        }) => {
-            return mapRefToSign[GPSLatitudeRef] * convertToDecimalDegrees(GPSLatitude);
-        })) / exifs.length
+// TODO: refactor in terms of convertExifToLngLat?
+const getCenter = (exifs) => {
+    const lngLats = exifs.map(convertExifToLngLat);
+    return [
+        sum(lngLats.map(([lng, lat]) => lng)) / lngLats.length,
+        sum(lngLats.map(([lng, lat]) => lat)) / lngLats.length,
     ];
 };
 
@@ -53,6 +57,25 @@ const getBounds = (exifs) => {
     ];
 };
 
+const findClusters = (exifs, photos, map) => {
+    const clustering = new DBSCAN();
+
+    const lngLats = exifs.map(convertExifToLngLat);
+
+    // Where does 23 come from? Trial and error.
+    const neighborhoodRadius = 23 / map.transform.scale;
+    const lngLatClusters = clustering.run(lngLats, neighborhoodRadius, 1);
+
+    return lngLatClusters.reduce((memo, indexes) => {
+        const clusterExifs = indexes.map((i) => exifs[i]);
+        const clusterPhotos = indexes.map((i) => photos[i]);
+        return [...memo, {
+            centerLngLat: getCenter(clusterExifs),
+            photos: clusterPhotos
+        }];
+    }, []);
+};
+
 export class PhotoMap2 extends React.Component {
 
     static defaultProps = {
@@ -63,21 +86,49 @@ export class PhotoMap2 extends React.Component {
         this.renderMap();
     }
 
-    renderPhoto (index) {
-        const { src } = this.props.photos[index];
+    addMarkersToMap (exifs, map) {
+        const clusters = findClusters(exifs, this.props.photos, map);
+
+        this.markers = clusters
+            .map(this.createMarkerForCluster);
+        this.markers.map((marker) => marker.addTo(map));
+    }
+
+    handleMapMove = throttle((event, exifs) => {
+        this.markers.forEach((marker) => marker.remove());
+        this.addMarkersToMap(exifs, event.target);
+    }, 200)
+
+    createMarkerForCluster = ({centerLngLat, photos}) => {
+        const marker = new mapboxgl.Marker(this.getDOMPhotoMarker(photos));
+        marker.setLngLat(centerLngLat);
+        return marker;
+    }
+
+    renderPhotos (photos) {
+        const { src } = photos[0];
         return (
-            <img className={css.photo} src={src}/>
+            <React.Fragment>
+                <img className={css.photo} src={src}/>
+                {photos.length > 1 && (
+                    <div className={css.cornerbox}>
+                        +{photos.length - 1}
+                    </div>
+                )}
+            </React.Fragment>
         );
     }
 
-    getDOMPhoto (index) {
+    getDOMPhotoMarker (photos) {
         const div = document.createElement("div");
         div.classList.add(css.PhotoMarker);
-        ReactDOM.render(this.renderPhoto(index), div);
+        ReactDOM.render(this.renderPhotos(photos), div);
         return div;
     }
 
     renderMap () {
+        // Not sure what zoom should be yet.
+        const zoom = 15;
         const promises = this.props.photos.map(({src}) => {
             const img = new Image(1,1);
             const promise = new Promise((resolve) => {
@@ -92,24 +143,17 @@ export class PhotoMap2 extends React.Component {
         });
 
         Promise.all(promises).then((exifs) => {
-            this.exifs = exifs;
-            this.map = new mapboxgl.Map({
+            const map = new mapboxgl.Map({
                 container: this.mapContainer,
                 style: 'mapbox://styles/mapbox/light-v9',
                 center: getCenter(exifs),
-                zoom: 15
+                zoom: zoom
             });
 
-            exifs.forEach(({
-                GPSLatitudeRef,
-                GPSLatitude,
-                GPSLongitudeRef,
-                GPSLongitude
-            }, index) => {
-                new mapboxgl.Marker(this.getDOMPhoto(index)).setLngLat([
-                    mapRefToSign[GPSLongitudeRef] * convertToDecimalDegrees(GPSLongitude),
-                    mapRefToSign[GPSLatitudeRef] * convertToDecimalDegrees(GPSLatitude)
-                ]).addTo(this.map);
+            this.addMarkersToMap(exifs, map);
+
+            map.on("move", (event) => {
+                this.handleMapMove(event, exifs);
             });
         });
     }

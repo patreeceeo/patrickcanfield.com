@@ -4,7 +4,6 @@
 /* global expect */
 jest.mock('mapbox-gl', () => {
     class Marker {
-
         setLngLat () {
             return this;
         }
@@ -12,12 +11,24 @@ jest.mock('mapbox-gl', () => {
         addTo () {
             return this;
         }
+
+        remove () {}
     }
 
     Marker.prototype.setLngLat = jest.fn(Marker.prototype.setLngLat);
 
+    const mapInstance = {
+        events: {},
+        on (eventName, callback) {
+            this.events[eventName] = callback;
+        },
+        transform: {
+            scale: 12345
+        }
+    };
+
     return {
-        Map: jest.fn(() => ({})),
+        Map: jest.fn(() => mapInstance),
         Marker,
     };
 });
@@ -73,6 +84,28 @@ jest.mock('./dimensions', () => {
         }
     }
     return Dimensions;
+});
+
+jest.mock('density-clustering', () => {
+    class DBSCAN {
+        run (dataset, epsilon, minPts) {
+            const lengthMap = [
+                [],
+                [[0]],
+                [[0,1]],
+                [[0,1,2]],
+                [[0,1,2], [3]],
+                [[0,1,2], [3,4]],
+                [[0,1,2], [3,4], [5]]
+            ];
+
+            return lengthMap[dataset.length];
+        }
+    }
+
+    return {
+        DBSCAN
+    };
 });
 
 import React from 'react';
@@ -140,5 +173,81 @@ describe("PhotoMap2", () => {
         />);
 
         expect(component.toJSON().props.style.height).toBe(`${800/1.62}px`);
+    });
+
+    it("clusters photos based on density", (done) => {
+        const photos = [
+            {
+                src: "2018:02:13 12:44:09/N/37,0,0/W/122,0,0",
+            },
+            {
+                src: "2018:02:13 12:44:09/N/38,0,0/W/122,0,0",
+            },
+            {
+                src: "2018:02:13 12:44:09/N/39,0,0/W/122,0,0",
+            },
+            {
+                src: "2018:02:13 12:44:09/N/40,0,0/W/122,0,0",
+            },
+            {
+                src: "2018:02:13 12:44:09/N/41,0,0/W/122,0,0",
+            },
+            {
+                src: "2018:02:13 12:44:09/N/42,0,0/W/122,0,0",
+            },
+        ];
+
+        renderer.create(<PhotoMap2
+            photos={photos}
+        />);
+
+        process.nextTick(() => {
+            expect(mapboxgl.Marker.prototype.setLngLat).toHaveBeenCalledWith([-122, 38]);
+            expect(mapboxgl.Marker.prototype.setLngLat).toHaveBeenCalledWith([-122, 40.5]);
+            expect(mapboxgl.Marker.prototype.setLngLat).toHaveBeenCalledWith([-122, 42]);
+            done();
+        });
+    });
+
+    it("re-clusters when the zoom level of the map changes", (done) => {
+        const map = new mapboxgl.Map();
+
+        const photos = [
+            {
+                src: "2018:02:13 12:44:09/N/37,0,0/W/122,0,0",
+            },
+            {
+                src: "2018:02:13 12:44:09/N/38,0,0/W/122,0,0",
+            },
+            {
+                src: "2018:02:13 12:44:09/N/39,0,0/W/122,0,0",
+            },
+            {
+                src: "2018:02:13 12:44:09/N/40,0,0/W/122,0,0",
+            },
+            {
+                src: "2018:02:13 12:44:09/N/41,0,0/W/122,0,0",
+            },
+            {
+                src: "2018:02:13 12:44:09/N/42,0,0/W/122,0,0",
+            },
+        ];
+
+        renderer.create(<PhotoMap2
+            photos={photos}
+        />);
+
+        // What does the moveend event object look like?
+        process.nextTick(() => {
+            mapboxgl.Marker.prototype.setLngLat.mockReset();
+            map.events.move({target: map});
+            process.nextTick(() => {
+                expect(mapboxgl.Marker.prototype.setLngLat).toHaveBeenCalledWith([-122, 38]);
+                expect(mapboxgl.Marker.prototype.setLngLat).toHaveBeenCalledWith([-122, 40.5]);
+                expect(mapboxgl.Marker.prototype.setLngLat).toHaveBeenCalledWith([-122, 42]);
+                done();
+            });
+        });
+
     });
 });
