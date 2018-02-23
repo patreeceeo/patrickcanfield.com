@@ -42,8 +42,6 @@ const TemplateWrapper = ({ children }) => (
         <meta property="og:site_name" content="Personal site of Patrick Canfield" />
         <meta property="og:url" content="http://patrickcanfield.com/" />
         <meta property="og:image" content={`http://patrickcanfield.com${meImg}`} />
-        <script>
-        </script>
     </Helmet>
     <div
       style={{

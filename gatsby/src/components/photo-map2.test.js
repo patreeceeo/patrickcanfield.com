@@ -3,7 +3,7 @@
 /* global it */
 /* global expect */
 jest.mock('mapbox-gl', () => {
-    class Marker {
+    class Popup {
         setLngLat () {
             return this;
         }
@@ -12,10 +12,14 @@ jest.mock('mapbox-gl', () => {
             return this;
         }
 
+        setDOMContent () {
+            return this;
+        }
+
         remove () {}
     }
 
-    Marker.prototype.setLngLat = jest.fn(Marker.prototype.setLngLat);
+    Popup.prototype.setLngLat = jest.fn(Popup.prototype.setLngLat);
 
     const mapInstance = {
         events: {},
@@ -29,7 +33,7 @@ jest.mock('mapbox-gl', () => {
 
     return {
         Map: jest.fn(() => mapInstance),
-        Marker,
+        Popup,
     };
 });
 
@@ -114,7 +118,7 @@ import mapboxgl from 'mapbox-gl';
 import renderer from 'react-test-renderer';
 
 describe("PhotoMap2", () => {
-    it("creates mapboxgl.Markers using photo EXIF data", (done) => {
+    it("creates mapboxgl.Popups using photo EXIF data", (done) => {
         const photos = [
             {
                 src: "2018:02:13 12:44:09/N/37,47,3.12/W/122,24,45.05",
@@ -128,7 +132,7 @@ describe("PhotoMap2", () => {
         // Necessary.
         // Perhaps because of the promise?
         process.nextTick(() => {
-            expect(mapboxgl.Marker.prototype.setLngLat).toHaveBeenCalledWith([
+            expect(mapboxgl.Popup.prototype.setLngLat).toHaveBeenCalledWith([
                 -1 * (122 + 24 / 60 + 45.05 / (60 * 60)),
                 37 + 47 / 60 + 3.12 / (60 * 60)
             ]);
@@ -136,7 +140,7 @@ describe("PhotoMap2", () => {
         });
     });
 
-    it("creates the mapboxgl.Map zoom and center so that all Markers are visible", (done) => {
+    it("creates the mapboxgl.Map zoom and center so that all Popups are visible", (done) => {
         const photos = [
             {
                 src: "2018:02:13 12:44:09/N/37,0,0/W/122,0,0",
@@ -202,9 +206,9 @@ describe("PhotoMap2", () => {
         />);
 
         process.nextTick(() => {
-            expect(mapboxgl.Marker.prototype.setLngLat).toHaveBeenCalledWith([-122, 38]);
-            expect(mapboxgl.Marker.prototype.setLngLat).toHaveBeenCalledWith([-122, 40.5]);
-            expect(mapboxgl.Marker.prototype.setLngLat).toHaveBeenCalledWith([-122, 42]);
+            expect(mapboxgl.Popup.prototype.setLngLat).toHaveBeenCalledWith([-122, 38]);
+            expect(mapboxgl.Popup.prototype.setLngLat).toHaveBeenCalledWith([-122, 40.5]);
+            expect(mapboxgl.Popup.prototype.setLngLat).toHaveBeenCalledWith([-122, 42]);
             done();
         });
     });
@@ -239,12 +243,12 @@ describe("PhotoMap2", () => {
 
         // What does the moveend event object look like?
         process.nextTick(() => {
-            mapboxgl.Marker.prototype.setLngLat.mockReset();
+            mapboxgl.Popup.prototype.setLngLat.mockReset();
             map.events.move({target: map});
             process.nextTick(() => {
-                expect(mapboxgl.Marker.prototype.setLngLat).toHaveBeenCalledWith([-122, 38]);
-                expect(mapboxgl.Marker.prototype.setLngLat).toHaveBeenCalledWith([-122, 40.5]);
-                expect(mapboxgl.Marker.prototype.setLngLat).toHaveBeenCalledWith([-122, 42]);
+                expect(mapboxgl.Popup.prototype.setLngLat).toHaveBeenCalledWith([-122, 38]);
+                expect(mapboxgl.Popup.prototype.setLngLat).toHaveBeenCalledWith([-122, 40.5]);
+                expect(mapboxgl.Popup.prototype.setLngLat).toHaveBeenCalledWith([-122, 42]);
                 done();
             });
         });

@@ -4,6 +4,7 @@ import EXIF from 'exif-js';
 import Image from '../Image';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import '../mapbox.overrides.css';
 import css from './photo-map2.module.css';
 import cx from 'classnames';
 import throttle from 'lodash.throttle';
@@ -86,42 +87,47 @@ export class PhotoMap2 extends React.Component {
         this.renderMap();
     }
 
-    addMarkersToMap (exifs, map) {
+    addPopupsToMap (exifs, map) {
         const clusters = findClusters(exifs, this.props.photos, map);
 
-        this.markers = clusters
-            .map(this.createMarkerForCluster);
-        this.markers.map((marker) => marker.addTo(map));
+        this.popups = clusters
+            .map(this.createPopupForCluster);
+        this.popups.map((popup) => popup.addTo(map));
     }
 
     handleMapMove = throttle((event, exifs) => {
-        this.markers.forEach((marker) => marker.remove());
-        this.addMarkersToMap(exifs, event.target);
-    }, 200)
+        this.popups.forEach((popup) => popup.remove());
+        this.addPopupsToMap(exifs, event.target);
+    }, 200).bind(this)
 
-    createMarkerForCluster = ({centerLngLat, photos}) => {
-        const marker = new mapboxgl.Marker(this.getDOMPhotoMarker(photos));
-        marker.setLngLat(centerLngLat);
-        return marker;
+    createPopupForCluster = ({centerLngLat, photos}) => {
+        const popup = new mapboxgl.Popup({
+            anchor: 'bottom',
+            closeButton: false,
+            closeOnClick: false
+        });
+        popup
+            .setDOMContent(this.generatePopupDOM(photos))
+            .setLngLat(centerLngLat);
+        return popup;
     }
 
     renderPhotos (photos) {
         const { src } = photos[0];
         return (
-            <React.Fragment>
+            <div className={css.PhotoPopup}>
                 <img className={css.photo} src={src}/>
                 {photos.length > 1 && (
                     <div className={css.cornerbox}>
                         +{photos.length - 1}
                     </div>
                 )}
-            </React.Fragment>
+            </div>
         );
     }
 
-    getDOMPhotoMarker (photos) {
+    generatePopupDOM (photos) {
         const div = document.createElement("div");
-        div.classList.add(css.PhotoMarker);
         ReactDOM.render(this.renderPhotos(photos), div);
         return div;
     }
@@ -150,7 +156,7 @@ export class PhotoMap2 extends React.Component {
                 zoom: zoom
             });
 
-            this.addMarkersToMap(exifs, map);
+            this.addPopupsToMap(exifs, map);
 
             map.on("move", (event) => {
                 this.handleMapMove(event, exifs);
