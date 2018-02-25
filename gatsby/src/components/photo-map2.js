@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom';
 import '../mapbox.overrides.css';
 import css from './photo-map2.module.css';
 import cx from 'classnames';
+import debounce from 'lodash.debounce';
 import throttle from 'lodash.throttle';
 import mapboxgl from 'mapbox-gl';
 import sum from 'lodash.sum';
@@ -75,7 +76,7 @@ const findClusters = (exifs, photos, map) => {
         const clusterPhotos = indexes.map((i) => photos[i]);
         return [...memo, {
             centerLngLat: getCenter(clusterExifs),
-            photos: clusterPhotos
+            clusterPhotos
         }];
     }, []);
 };
@@ -86,58 +87,74 @@ export class PhotoMap2 extends React.Component {
         aspectRatio: 1
     }
 
+    constructor (props) {
+        super(props);
+
+        this.exifBySrc = {};
+        this.exifList = [];
+    }
+
     componentDidMount () {
         this.renderMap();
     }
 
-    addPopupsToMap (exifs, map) {
-        const clusters = findClusters(exifs, this.props.photos, map);
+    addPopupsToMap (exifs) {
+        const clusters = findClusters(exifs, this.props.photos, this.map);
 
         this.popups = clusters
             .map(this.createPopupForCluster);
-        this.popups.map((popup) => popup.addTo(map));
+        this.popups.map((popup) => popup.addTo(this.map));
     }
 
     handleMapMove = throttle((event, exifs) => {
         this.popups.forEach((popup) => popup.remove());
-        this.addPopupsToMap(exifs, event.target);
-    }, 200).bind(this)
+        this.addPopupsToMap(exifs);
+    }, 200).bind(this);
 
-    createPopupForCluster = ({centerLngLat, photos}) => {
+    handleDimensionsChange = debounce(() => {
+        if(this.map) {
+            this.map.easeTo({center: getCenter(this.exifList)});
+        }
+    }, 200).bind(this);
+
+    createPopupForCluster = ({centerLngLat, clusterPhotos}) => {
         const popup = new mapboxgl.Popup({
             anchor: 'bottom',
             closeButton: false,
             closeOnClick: false
         });
         popup
-            .setDOMContent(this.generatePopupDOM(photos))
+            .setDOMContent(this.generatePopupDOM(clusterPhotos))
             .setLngLat(centerLngLat);
         return popup;
     }
 
-    renderPhotos (photos) {
-        const { src } = photos[0];
+    renderPhotos (clusterPhotos) {
+        const { src } = clusterPhotos[0];
         return (
-            <div className={css.PhotoPopup}>
+            <div
+                className={css.PhotoPopup}
+                onClick={this.handlePopupClick}
+            >
                 <img className={css.photo} src={src}/>
-                {photos.length > 1 && (
+                {clusterPhotos.length > 1 && (
                     <div className={css.cornerbox}>
-                        +{photos.length - 1}
+                        +{clusterPhotos.length - 1}
                     </div>
                 )}
             </div>
         );
     }
 
-    generatePopupDOM (photos) {
+    generatePopupDOM (clusterPhotos) {
         const div = document.createElement("div");
-        ReactDOM.render(this.renderPhotos(photos), div);
+        ReactDOM.render(this.renderPhotos(clusterPhotos), div);
         return div;
     }
 
     renderMap () {
         // Not sure what zoom should be yet.
-        const zoom = 15;
+        const zoom = 14;
         const promises = this.props.photos.map(({src}) => {
             const img = new Image(1,1);
             const promise = new Promise((resolve) => {
@@ -152,18 +169,20 @@ export class PhotoMap2 extends React.Component {
         });
 
         Promise.all(promises).then((exifs) => {
-            const map = new mapboxgl.Map({
+            this.map = new mapboxgl.Map({
                 container: this.mapContainer,
                 style: 'mapbox://styles/mapbox/light-v9',
                 center: getCenter(exifs),
                 zoom: zoom
             });
 
-            this.addPopupsToMap(exifs, map);
+            this.addPopupsToMap(exifs);
 
-            map.on("move", (event) => {
+            this.map.on("move", (event) => {
                 this.handleMapMove(event, exifs);
             });
+
+            this.exifList = exifs;
         });
     }
 
@@ -177,7 +196,7 @@ export class PhotoMap2 extends React.Component {
     }
 
     render () {
-        return <Dimensions onResize={this.onDimensionsChange}>{this.renderWithDimensions}</Dimensions>;
+        return <Dimensions onResize={this.handleDimensionsChange}>{this.renderWithDimensions}</Dimensions>;
     }
 }
 
