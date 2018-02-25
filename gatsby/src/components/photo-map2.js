@@ -1,4 +1,6 @@
 import Dimensions from './dimensions';
+// TODO: look at using supercluster instead
+// https://github.com/mapbox/mapbox-gl-js/issues/4491
 import { DBSCAN } from 'density-clustering';
 import EXIF from 'exif-js';
 import Image from '../Image';
@@ -12,6 +14,8 @@ import mapboxgl from 'mapbox-gl';
 import sum from 'lodash.sum';
 import max from 'lodash.maxby';
 import min from 'lodash.minby';
+
+// TODO: look at macOS's photo map for ideas/inspiration
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicHNjYWxlMDEiLCJhIjoiY2pkcWI5NzVhMDJvdTJxbzlrcDRoOTVhayJ9.fCWGc7YYwB0bz9Dc8AloNA';
 
@@ -38,7 +42,6 @@ const convertExifToLngLat = ({
     ];
 };
 
-// TODO: refactor in terms of convertExifToLngLat?
 const getCenter = (exifs) => {
     const lngLats = exifs.map(convertExifToLngLat);
     return [
