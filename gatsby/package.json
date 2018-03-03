@@ -21,6 +21,7 @@
     "gatsby-remark-smartypants": "^1.4.8",
     "gatsby-source-filesystem": "^1.5.5",
     "gatsby-transformer-remark": "^1.7.18",
+    "lodash.clamp": "^4.0.3",
     "lodash.debounce": "^4.0.8",
     "lodash.maxby": "^4.6.0",
     "lodash.minby": "^4.6.0",

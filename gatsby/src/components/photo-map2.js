@@ -1,6 +1,8 @@
 import Dimensions from './dimensions';
 // TODO: look at using supercluster instead
 // https://github.com/mapbox/mapbox-gl-js/issues/4491
+// Or Uber's thing
+// http://uber.github.io/deck.gl/#/examples/core-layers/icon-layer
 import { DBSCAN } from 'density-clustering';
 import EXIF from 'exif-js';
 import Image from '../Image';
@@ -11,11 +13,22 @@ import css from './photo-map2.module.css';
 import cx from 'classnames';
 import debounce from 'lodash.debounce';
 import throttle from 'lodash.throttle';
-import mapboxgl from 'mapbox-gl';
 import sum from 'lodash.sum';
 import max from 'lodash.maxby';
 import min from 'lodash.minby';
 
+// Must conditionally import mapboxgl
+// because it references `window` which causes
+// Gatsby's build process to blow up.
+let mapboxgl;
+if(typeof window !== 'undefined') {
+    mapboxgl = require('mapbox-gl');
+} else {
+    mapboxgl = {
+        Map: function () {},
+        Popup: function () {}
+    };
+}
 // TODO: look at macOS's photo map for ideas/inspiration
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicHNjYWxlMDEiLCJhIjoiY2pkcWI5NzVhMDJvdTJxbzlrcDRoOTVhayJ9.fCWGc7YYwB0bz9Dc8AloNA';

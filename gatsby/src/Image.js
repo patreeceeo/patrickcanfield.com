@@ -1,1 +1,1 @@
-export default window.Image;
+export default global.Image;

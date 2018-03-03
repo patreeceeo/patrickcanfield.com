@@ -28,7 +28,8 @@ jest.mock('mapbox-gl', () => {
         },
         transform: {
             scale: 12345
-        }
+        },
+        easeTo: jest.fn()
     };
 
     return {
