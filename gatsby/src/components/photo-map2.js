@@ -65,13 +65,10 @@ const getCenter = (exifs) => {
 };
 
 const getBounds = (exifs) => {
-    const lngLats = exifs.map(({GPSLatitude, GPSLongitude}) => [
-        convertToDecimalDegrees(GPSLongitude),
-        convertToDecimalDegrees(GPSLatitude)
-    ]);
+    const lngLats = exifs.map(convertExifToLngLat);
     return [
-        max(lngLats, ([lng, lat]) => Math.sqrt(lng * lng + lat * lat)),
-        min(lngLats, ([lng, lat]) => Math.sqrt(lng * lng + lat * lat))
+        [min(lngLats, ([lng, lat]) => lng)[0], min(lngLats, ([lng, lat]) => lat)[1]],
+        [max(lngLats, ([lng, lat]) => lng)[0], max(lngLats, ([lng, lat]) => lat)[1]],
     ];
 };
 
@@ -86,10 +83,9 @@ const findClusters = (exifs, photos, map) => {
 
     return lngLatClusters.reduce((memo, indexes) => {
         const clusterExifs = indexes.map((i) => exifs[i]);
-        const clusterPhotos = indexes.map((i) => photos[i]);
         return [...memo, {
             centerLngLat: getCenter(clusterExifs),
-            clusterPhotos
+            clusterIndexes: indexes
         }];
     }, []);
 };
@@ -105,10 +101,23 @@ export class PhotoMap2 extends React.Component {
 
         this.exifBySrc = {};
         this.exifList = [];
+
+        this.state = {
+            shouldShrinkMap: false,
+            enlargedPhotoIndex: -1
+        };
     }
 
     componentDidMount () {
         this.renderMap();
+    }
+
+    shouldShrinkMap () {
+        return this.state.shouldShrinkMap;
+    }
+
+    getEnlargedPhoto () {
+        return this.props.photos[this.state.enlargedPhotoIndex];
     }
 
     addPopupsToMap (exifs) {
@@ -130,38 +139,75 @@ export class PhotoMap2 extends React.Component {
         }
     }, 200).bind(this);
 
-    createPopupForCluster = ({centerLngLat, clusterPhotos}) => {
+    createPopupForCluster = ({centerLngLat, clusterIndexes}) => {
         const popup = new mapboxgl.Popup({
             anchor: 'bottom',
             closeButton: false,
             closeOnClick: false
         });
         popup
-            .setDOMContent(this.generatePopupDOM(clusterPhotos))
+            .setDOMContent(this.generatePopupDOM(clusterIndexes))
             .setLngLat(centerLngLat);
         return popup;
     }
 
-    renderPhotos (clusterPhotos) {
-        const { src } = clusterPhotos[0];
+    handlePopupClick = (clusterIndexes) => {
+        const [topIndex, ...otherIndexes] = clusterIndexes;
+
+        const exifs = clusterIndexes.map((index) => this.exifList[index]);
+        const bounds = getBounds(exifs);
+
+        if(this.getEnlargedPhoto()) {
+            return;
+        }
+
+        if(otherIndexes.length > 0) {
+            this.map.fitBounds(bounds, {
+                linear: true,
+                padding: 200
+            });
+        } else {
+            this.setState({
+                shouldShrinkMap: true,
+                enlargedPhotoIndex: topIndex
+            });
+        }
+    }
+
+    handleMapClick = () => {
+        this.setState({
+            shouldShrinkMap: false
+        });
+        // TODO: use a JS-CSS animation bridge lib
+        setTimeout(() => {
+            this.setState({
+                enlargedPhotoIndex: -1
+            });
+        }, 1001);
+    }
+
+    renderPhotos (clusterIndexes) {
+        const topIndex = clusterIndexes[0];
+        const { src } = this.props.photos[topIndex];
+
         return (
             <div
                 className={css.PhotoPopup}
-                onClick={this.handlePopupClick}
+                onClick={() => this.handlePopupClick(clusterIndexes)}
             >
                 <img className={css.photo} src={src}/>
-                {clusterPhotos.length > 1 && (
+                {clusterIndexes.length > 1 && (
                     <div className={css.cornerbox}>
-                        +{clusterPhotos.length - 1}
+                        +{clusterIndexes.length - 1}
                     </div>
                 )}
             </div>
         );
     }
 
-    generatePopupDOM (clusterPhotos) {
+    generatePopupDOM (clusterIndexes) {
         const div = document.createElement("div");
-        ReactDOM.render(this.renderPhotos(clusterPhotos), div);
+        ReactDOM.render(this.renderPhotos(clusterIndexes), div);
         return div;
     }
 
@@ -200,11 +246,25 @@ export class PhotoMap2 extends React.Component {
     }
 
     renderWithDimensions = ({width}) => {
+        const onMapClick = this.handleMapClick;
+        const enlargedPhoto = this.getEnlargedPhoto();
         return (
             <div
-                ref={el => this.mapContainer = el} style={{height: `${width/this.props.aspectRatio}px`}}
-                className={cx(css.PhotoMap)}
-            />
+                className={cx(css.PhotoMap, {
+                    [css.PhotoMap__withEnlargedPhoto]: this.shouldShrinkMap()
+                })}
+                style={{height: `${width/this.props.aspectRatio}px`}}
+            >
+                <div
+                    className={css.PhotoBox}
+                    style={{backgroundImage: enlargedPhoto ? `url(${enlargedPhoto.src})` : 'none'}}
+                />
+                <div
+                    className={css.MapBox}
+                    ref={el => this.mapContainer = el}
+                    onClick={enlargedPhoto ? onMapClick : undefined}
+                />
+            </div>
         );
     }
 
