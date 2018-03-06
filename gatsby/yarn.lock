@@ -3999,9 +3999,9 @@ gatsby-1-config-css-modules@^1.0.9:
   dependencies:
     babel-runtime "^6.26.0"
 
-gatsby-cli@^1.1.19:
-  version "1.1.19"
-  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-1.1.19.tgz#db8fe360beff20e91dd195bcc86d392ab71d63fc"
+gatsby-cli@^1.1.40:
+  version "1.1.40"
+  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-1.1.40.tgz#6d81d245092f1eb983a2c3015875c3750c7d7db8"
   dependencies:
     babel-code-frame "^6.26.0"
     babel-runtime "^6.26.0"
@@ -4017,12 +4017,13 @@ gatsby-cli@^1.1.19:
     resolve-cwd "^2.0.0"
     source-map "^0.5.7"
     stack-trace "^0.0.10"
+    update-notifier "^2.3.0"
     yargs "^8.0.2"
     yurnalist "^0.2.1"
 
-gatsby-cli@^1.1.40:
-  version "1.1.40"
-  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-1.1.40.tgz#6d81d245092f1eb983a2c3015875c3750c7d7db8"
+gatsby-cli@^1.1.45:
+  version "1.1.45"
+  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-1.1.45.tgz#d68f780bc861130c9afe7dae7cd5bdb665b0f05a"
   dependencies:
     babel-code-frame "^6.26.0"
     babel-runtime "^6.26.0"

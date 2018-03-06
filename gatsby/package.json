@@ -9,7 +9,7 @@
     "exif-js": "^2.3.0",
     "font-awesome": "^4.7.0",
     "gatsby": "^1.9.201",
-    "gatsby-cli": "^1.1.19",
+    "gatsby-cli": "^1.1.45",
     "gatsby-link": "^1.6.22",
     "gatsby-plugin-feed": "^1.3.11",
     "gatsby-plugin-google-analytics": "^1.0.11",

@@ -1,3 +1,6 @@
+const TRANSITION_DURATION_MAP_SHRINK = 250;
+
+
 import Dimensions from './dimensions';
 // TODO: look at using supercluster instead
 // https://github.com/mapbox/mapbox-gl-js/issues/4491
@@ -8,7 +11,6 @@ import EXIF from 'exif-js';
 import Image from '../Image';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CSSTransition from '../CSSTransition';
 import '../mapbox.overrides.css';
 import css from './photo-map2.module.css';
 import cx from 'classnames';
@@ -185,7 +187,7 @@ export class PhotoMap2 extends React.Component {
             this.setState({
                 enlargedPhotoIndex: -1
             });
-        }, 1001);
+        }, TRANSITION_DURATION_MAP_SHRINK);
     }
 
     renderPhotos (clusterIndexes) {
@@ -268,6 +270,7 @@ export class PhotoMap2 extends React.Component {
                     className={css.MapBox}
                     ref={el => this.mapContainer = el}
                     onClick={enlargedPhoto ? onMapClick : undefined}
+                    style={{transitionDuration: TRANSITION_DURATION_MAP_SHRINK + 'ms'}}
                 />
             </div>
         );

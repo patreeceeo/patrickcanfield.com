@@ -28,7 +28,8 @@
 
 .PhotoMap.PhotoMap__withEnlargedPhoto .MapBox {
   transform: scale(0.1);
-  transition: transform 1s ease-in;
+  transition-property: transform;
+  transition-function: ease-in;
 }
 
 .PhotoMap.PhotoMap__withEnlargedPhoto .PhotoPopup {
