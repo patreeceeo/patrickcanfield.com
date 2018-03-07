@@ -14,9 +14,13 @@
 
 .PhotoMap .MapBox {
   transform-origin: bottom right;
-  transition: transform 1s ease-out;
+  transition-property: transform;
+  transition-function: ease-out;
 
-  box-shadow: 0 0 0 20px white;
+  box-shadow: 32px 32px rgba(0, 0, 0, 0.5);
+
+  /* for MapGlassCasing */
+  position: relative;
 }
 
 .PhotoMap .PhotoBox {
@@ -27,13 +31,20 @@
 }
 
 .PhotoMap.PhotoMap__withEnlargedPhoto .MapBox {
-  transform: scale(0.1);
-  transition-property: transform;
+  transform: scale(calc(1/7)) translate(-32px, -32px);
   transition-function: ease-in;
+  cursor: pointer !important;
 }
 
 .PhotoMap.PhotoMap__withEnlargedPhoto .PhotoPopup {
   cursor: default;
+}
+
+.PhotoMap.PhotoMap__withEnlargedPhoto .MapGlassCasing {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 .PhotoPopup {
@@ -44,6 +55,10 @@
   max-width: 64px;
   max-height: 64px;
   display: block;
+}
+.PhotoMap.PhotoMap__withEnlargedPhoto .PhotoPopup .photo {
+  max-width: calc(64px * 3);
+  max-height: calc(64px * 3);
 }
 
 .PhotoPopup .cornerbox {

@@ -164,13 +164,12 @@ export class PhotoMap2 extends React.Component {
             return;
         }
 
-        if(otherIndexes.length > 0) {
-            console.log({bounds});
-            this.map.fitBounds(bounds, {
-                linear: true,
-                padding: this.screenWidth * 0.1
-            });
-        } else {
+        this.map.fitBounds(bounds, {
+            linear: true,
+            padding: this.screenWidth * 0.2,
+        });
+
+        if(otherIndexes.length === 0) {
             this.setState({
                 shouldShrinkMap: true,
                 enlargedPhotoIndex: topIndex
@@ -182,7 +181,8 @@ export class PhotoMap2 extends React.Component {
         this.setState({
             shouldShrinkMap: false
         });
-        // TODO: use a JS-CSS animation bridge lib
+
+        this.map.setZoom(17);
         setTimeout(() => {
             this.setState({
                 enlargedPhotoIndex: -1
@@ -269,9 +269,12 @@ export class PhotoMap2 extends React.Component {
                 <div
                     className={css.MapBox}
                     ref={el => this.mapContainer = el}
-                    onClick={enlargedPhoto ? onMapClick : undefined}
                     style={{transitionDuration: TRANSITION_DURATION_MAP_SHRINK + 'ms'}}
-                />
+                >
+                    <div className={css.MapGlassCasing}
+                        onClick={enlargedPhoto ? onMapClick : undefined}
+                    />
+                </div>
             </div>
         );
     }
