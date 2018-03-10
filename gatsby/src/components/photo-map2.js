@@ -93,6 +93,94 @@ const findClusters = (exifs, photos, map) => {
     }, []);
 };
 
+
+/**
+ * A `FullscreenControl` control contains a button for toggling the map in and out of fullscreen mode.
+ *
+ * Adapted from MapBox's FullscreenControl
+ */
+
+class FullscreenControl extends React.Component {
+    constructor(props) {
+        super(props);
+        this._fullscreen = false;
+        if ('onfullscreenchange' in global.document) {
+            this._fullscreenchange = 'fullscreenchange';
+        } else if ('onmozfullscreenchange' in global.document) {
+            this._fullscreenchange = 'mozfullscreenchange';
+        } else if ('onwebkitfullscreenchange' in global.document) {
+            this._fullscreenchange = 'webkitfullscreenchange';
+        } else if ('onmsfullscreenchange' in global.document) {
+            this._fullscreenchange = 'MSFullscreenChange';
+        }
+
+        this.state = {isFullscreen: false};
+    }
+
+    componentDidMount () {
+        global.document.addEventListener(this._fullscreenchange, this.handleFullscreenChange);
+    }
+
+    checkFullscreenSupport() {
+        return !!(
+            global.document.fullscreenEnabled ||
+            (global.document: any).mozFullScreenEnabled ||
+            (global.document: any).msFullscreenEnabled ||
+            (global.document: any).webkitFullscreenEnabled
+        );
+    }
+
+    handleFullscreenChange = () => {
+        this.setState(({isFullscreen}) => ({isFullscreen: !isFullscreen}));
+    }
+
+    handleClickFullscreen = () => {
+        if (this.state.isFullscreen) {
+            if (global.document.exitFullscreen) {
+                (global.document: any).exitFullscreen();
+            } else if (global.document.mozCancelFullScreen) {
+                (global.document: any).mozCancelFullScreen();
+            } else if (global.document.msExitFullscreen) {
+                (global.document: any).msExitFullscreen();
+            } else if (global.document.webkitCancelFullScreen) {
+                (global.document: any).webkitCancelFullScreen();
+            }
+            this.props.onAfterExit();
+        } else {
+            const {fullscreenElement} = this.props;
+            this.props.onBeforeRequest();
+            if (fullscreenElement.requestFullscreen) {
+                fullscreenElement.requestFullscreen();
+            } else if (fullscreenElement.mozRequestFullScreen) {
+                (fullscreenElement: any).mozRequestFullScreen();
+            } else if (fullscreenElement.msRequestFullscreen) {
+                (fullscreenElement: any).msRequestFullscreen();
+            } else if (fullscreenElement.webkitRequestFullscreen) {
+                (fullscreenElement: any).webkitRequestFullscreen();
+            }
+        }
+    }
+
+    render () {
+        if(!this.checkFullscreenSupport()) {
+            console.warn('This device does not support fullscreen mode.');
+            return <div/>;
+        } else {
+            return (
+                <button
+                    className={cx(css.Control, "mapboxgl-ctrl mapboxgl-ctrl-icon", {
+                        "mapboxgl-ctrl-fullscreen": !this.state.isFullscreen,
+                        "mapboxgl-ctrl-shrink": this.state.isFullscreen
+                    })}
+                    aria-label="Toggle fullscreen"
+                    type="button"
+                    onClick={this.handleClickFullscreen}
+                />
+            );
+        }
+    }
+}
+
 export class PhotoMap2 extends React.Component {
 
     static defaultProps = {
@@ -131,9 +219,9 @@ export class PhotoMap2 extends React.Component {
         this.popups.map((popup) => popup.addTo(this.map));
     }
 
-    handleMapMove = throttle((event, exifs) => {
+    handleMapMove = throttle(() => {
         this.popups.forEach((popup) => popup.remove());
-        this.addPopupsToMap(exifs);
+        this.addPopupsToMap(this.exifList);
     }, 200).bind(this);
 
     handleDimensionsChange = debounce(() => {
@@ -241,9 +329,7 @@ export class PhotoMap2 extends React.Component {
 
             this.addPopupsToMap(exifs);
 
-            this.map.on("move", (event) => {
-                this.handleMapMove(event, exifs);
-            });
+            this.map.on("move", this.handleMapMove);
 
             this.exifList = exifs;
         });
@@ -258,10 +344,26 @@ export class PhotoMap2 extends React.Component {
         return (
             <div
                 className={cx(css.PhotoMap, {
-                    [css.PhotoMap__withEnlargedPhoto]: this.shouldShrinkMap()
+                    [css.PhotoMap__withEnlargedPhoto]: this.shouldShrinkMap(),
+                    [css.PhotoMap__isFullscreen]: this.state.isFullscreen
                 })}
-                style={{height: `${width/this.props.aspectRatio}px`}}
+                ref={(el) => this.elPhotoMap = el}
             >
+                <div className={cx(css.Controls, "mapboxgl-ctrl-group")}>
+                    <FullscreenControl
+                        fullscreenElement={this.elPhotoMap}
+                        onBeforeRequest={() =>
+                            this.setState({isFullscreen: true})
+                        }
+                        onAfterExit={() =>
+                            this.setState({isFullscreen: false}, () => {
+                                this.map.easeTo({
+                                    center: getCenter(this.exifList),
+                                });
+                            })
+                        }
+                    />
+                </div>
                 <div
                     className={css.PhotoBox}
                     style={{backgroundImage: enlargedPhoto ? `url(${enlargedPhoto.src})` : 'none'}}
