@@ -8,6 +8,8 @@ import Dimensions from './dimensions';
 // http://uber.github.io/deck.gl/#/examples/core-layers/icon-layer
 import { DBSCAN } from 'density-clustering';
 import EXIF from 'exif-js';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/fontawesome-free-solid';
 import Image from '../Image';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -168,7 +170,7 @@ class FullscreenControl extends React.Component {
         } else {
             return (
                 <button
-                    className={cx(css.Control, "mapboxgl-ctrl mapboxgl-ctrl-icon", {
+                    className={cx("mapboxgl-ctrl mapboxgl-ctrl-icon", {
                         "mapboxgl-ctrl-fullscreen": !this.state.isFullscreen,
                         "mapboxgl-ctrl-shrink": this.state.isFullscreen
                     })}
@@ -368,6 +370,9 @@ export class PhotoMap2 extends React.Component {
                     className={css.PhotoBox}
                     style={{backgroundImage: enlargedPhoto ? `url(${enlargedPhoto.src})` : 'none'}}
                 />
+                <div className={css.PhotoLink}>
+                    <a href={enlargedPhoto ? enlargedPhoto.src : ''} target="_blank"><FontAwesomeIcon icon={faEye} /></a>
+                </div>
                 <div
                     className={css.MapBox}
                     ref={el => this.mapContainer = el}
