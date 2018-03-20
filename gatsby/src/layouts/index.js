@@ -6,7 +6,6 @@ import * as icons from '../favicons/index';
 import meImg from '../me-np.png';
 import neocitiesImg from '../neocities-logo.png';
 import gatsbyImg from '../gatsby-logo.svg';
-import './workaround';
 
 import './normalize.css';
 import './global.css';

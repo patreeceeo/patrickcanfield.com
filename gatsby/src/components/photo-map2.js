@@ -9,7 +9,7 @@ import Dimensions from './dimensions';
 import { DBSCAN } from 'density-clustering';
 import EXIF from 'exif-js';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faEye } from '@fortawesome/fontawesome-free-solid';
+import { faSearchPlus } from '@fortawesome/fontawesome-free-solid';
 import Image from '../Image';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -102,17 +102,20 @@ const findClusters = (exifs, photos, map) => {
  * Adapted from MapBox's FullscreenControl
  */
 
+
 class FullscreenControl extends React.Component {
+
     constructor(props) {
         super(props);
         this._fullscreen = false;
-        if ('onfullscreenchange' in global.document) {
+        this.document = global.document || {};
+        if ('onfullscreenchange' in this.document) {
             this._fullscreenchange = 'fullscreenchange';
-        } else if ('onmozfullscreenchange' in global.document) {
+        } else if ('onmozfullscreenchange' in this.document) {
             this._fullscreenchange = 'mozfullscreenchange';
-        } else if ('onwebkitfullscreenchange' in global.document) {
+        } else if ('onwebkitfullscreenchange' in this.document) {
             this._fullscreenchange = 'webkitfullscreenchange';
-        } else if ('onmsfullscreenchange' in global.document) {
+        } else if ('onmsfullscreenchange' in this.document) {
             this._fullscreenchange = 'MSFullscreenChange';
         }
 
@@ -120,15 +123,15 @@ class FullscreenControl extends React.Component {
     }
 
     componentDidMount () {
-        global.document.addEventListener(this._fullscreenchange, this.handleFullscreenChange);
+        this.document.addEventListener(this._fullscreenchange, this.handleFullscreenChange);
     }
 
     checkFullscreenSupport() {
         return !!(
-            global.document.fullscreenEnabled ||
-            (global.document: any).mozFullScreenEnabled ||
-            (global.document: any).msFullscreenEnabled ||
-            (global.document: any).webkitFullscreenEnabled
+            this.document.fullscreenEnabled ||
+            (this.document: any).mozFullScreenEnabled ||
+            (this.document: any).msFullscreenEnabled ||
+            (this.document: any).webkitFullscreenEnabled
         );
     }
 
@@ -138,14 +141,14 @@ class FullscreenControl extends React.Component {
 
     handleClickFullscreen = () => {
         if (this.state.isFullscreen) {
-            if (global.document.exitFullscreen) {
-                (global.document: any).exitFullscreen();
-            } else if (global.document.mozCancelFullScreen) {
-                (global.document: any).mozCancelFullScreen();
-            } else if (global.document.msExitFullscreen) {
-                (global.document: any).msExitFullscreen();
-            } else if (global.document.webkitCancelFullScreen) {
-                (global.document: any).webkitCancelFullScreen();
+            if (this.document.exitFullscreen) {
+                (this.document: any).exitFullscreen();
+            } else if (this.document.mozCancelFullScreen) {
+                (this.document: any).mozCancelFullScreen();
+            } else if (this.document.msExitFullscreen) {
+                (this.document: any).msExitFullscreen();
+            } else if (this.document.webkitCancelFullScreen) {
+                (this.document: any).webkitCancelFullScreen();
             }
             this.props.onAfterExit();
         } else {
@@ -350,6 +353,7 @@ export class PhotoMap2 extends React.Component {
                     [css.PhotoMap__isFullscreen]: this.state.isFullscreen
                 })}
                 ref={(el) => this.elPhotoMap = el}
+                onKeyPress={this.handleKeyPress}
             >
                 <div className={cx(css.Controls, "mapboxgl-ctrl-group")}>
                     <FullscreenControl
@@ -366,13 +370,20 @@ export class PhotoMap2 extends React.Component {
                         }
                     />
                 </div>
-                <div
-                    className={css.PhotoBox}
-                    style={{backgroundImage: enlargedPhoto ? `url(${enlargedPhoto.src})` : 'none'}}
-                />
-                <div className={css.PhotoLink}>
-                    <a href={enlargedPhoto ? enlargedPhoto.src : ''} target="_blank"><FontAwesomeIcon icon={faEye} /></a>
-                </div>
+                {enlargedPhoto && (
+                    <React.Fragment>
+                        <div
+                            className={css.PhotoBox}
+                            style={{backgroundImage: `url(${enlargedPhoto.src})`}}
+                        />
+                        <h3 className={css.PhotoCaption}>
+                            {enlargedPhoto.caption}
+                            {" "}<a href={enlargedPhoto.src} target="_blank">
+                                <FontAwesomeIcon icon={faSearchPlus}/>
+                            </a>
+                        </h3>
+                    </React.Fragment>
+                )}
                 <div
                     className={css.MapBox}
                     ref={el => this.mapContainer = el}
