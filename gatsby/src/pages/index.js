@@ -34,7 +34,7 @@ const IndexPage = ({data}) => (
             <a href="https://patrickcanfield.com"><img src={meImg} className={css.Header_photo} /></a>
             <div>
                 <h2 className={css.Title}>Patrick Canfield</h2>
-                <h4>art, ideas, hacks, travel, etc.</h4>
+                <h4>The toughest book of all is the one full of blank pages.</h4>
             </div>
         </div>
         <hr/>
