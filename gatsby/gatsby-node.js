@@ -5,9 +5,9 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
 
     const blogPostTemplate = path.resolve(`src/templates/blog-post.js`);
 
+    // TODO: implement pagination, once I have >1000
     return graphql(`{
         allMarkdownRemark(
-          sort: { order: DESC, fields: [frontmatter___date] }
           limit: 1000
         ) {
           edges {
@@ -19,6 +19,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
                 date
                 path
                 title
+                tags
               }
             }
           }

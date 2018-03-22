@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import meImg from '../me-np.png';
-import css from './index.module.css';
+import meImg from '../../me-np.png';
+import css from '../index.module.css';
 
 const Posts = ({data}) => {
     const { edges: posts } = data.allMarkdownRemark;
@@ -46,9 +46,10 @@ const IndexPage = ({data}) => (
 export default IndexPage;
 
 export const pageQuery = graphql`
-  query IndexQuery {
+  query WrittenQuery {
     allMarkdownRemark(
         sort: { order: DESC, fields: [frontmatter___date] }
+        filter: { frontmatter: { tags: { in: ["writing"] } } }
     ) {
       edges {
         node {
