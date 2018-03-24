@@ -3,6 +3,7 @@ path: "/blog/2017/10/29/glacier"
 date: "2017-10-30T17:18:00Z"
 title: "Glacier National Park"
 category: "exploration"
+tags: ["writing", "visual"]
 ---
 
 Was in Glacier National Park in Montana earlier this month. We saw some mountain goats, some birds, and this guy:

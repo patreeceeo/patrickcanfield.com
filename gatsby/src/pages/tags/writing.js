@@ -1,12 +1,14 @@
 import React from 'react';
 import IndexPage from '../../components/index-page';
+import Tabs from '../../components/tags-tabs';
 
 const WritingIndex = ({data}) => {
     return (
         <IndexPage
             data={data}
-            blurb="The toughest book of all is the one full of blank pages."
-        />
+        >
+            <Tabs selected="writing"/>
+        </IndexPage>
     );
 };
 

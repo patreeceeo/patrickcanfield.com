@@ -1,5 +1,6 @@
-import React from 'react';
 import Link from 'gatsby-link';
+import React from 'react';
+import * as Tabs from './tabs';
 import meImg from '../me-np.png';
 import css from './index-page.module.css';
 
@@ -28,16 +29,15 @@ const Posts = ({data}) => {
     );
 };
 
-const IndexPage = ({data, blurb}) => (
+const IndexPage = ({data, children}) => (
     <div>
         <div className={css.Header}>
             <a href="https://patrickcanfield.com"><img src={meImg} className={css.Header_photo} /></a>
             <div>
                 <h2 className={css.Title}>Patrick Canfield</h2>
-                <h4>{blurb}</h4>
+                {children}
             </div>
         </div>
-        <hr/>
         <h3>recent posts</h3>
         <Posts data={data} />
     </div>

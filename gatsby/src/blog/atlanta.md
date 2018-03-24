@@ -2,6 +2,7 @@
 path: "/blog/2017/11/15/atlanta"
 date: "2017-11-15T15:00:00Z"
 title: "Atlanta"
+tags: ["writing"]
 category: "life, the universe and everything"
 ---
 
