@@ -3,6 +3,7 @@ path: "/blog/2018/01/15/sleep-mindfulness-art"
 date: "2018-01-15T17:11:00Z"
 title: "Sleep, mindfulness, and art"
 category: "life, the universe, and everything"
+tags: ["writing", "art"]
 ---
 
 I finally feel like I’m winning the war against my insomnia. I’d been fighting this war for over two years and every night felt like a new battle. Daily exercise helped a lot, but it seemed like I needed eight hours of exercise to buy eight solid hours of sleep. For a while I thought coffee was the enemy, but I love coffee and cutting it out didn’t consistently help. I made sure my room was dark and quiet but I’d still wake up in the middle of the night in fight-or-flight response. In retrospect, it seems obvious that meditation would be a promising solution-space. I realized that the problem was all in my mind. It was a habit of thought, which doesn’t make it any less of a real problem. I had such high expectations for myself every day that being delayed or inconvenienced for just a few seconds from the pursuit of my objectives felt like an impending personal doom. I strained my mind to figure out how to squeeze every ounce of productivity out of each day. This idea of hyper-productivity sort of took on a life of its own as an overbearing task-master, who would flip on the internal fluorescent lights and sound the alarm when I needed to be sleeping.

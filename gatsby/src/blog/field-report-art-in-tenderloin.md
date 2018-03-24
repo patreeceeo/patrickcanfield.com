@@ -2,7 +2,7 @@
 path: "/blog/2018/2/13/art-in-tenderloin"
 date: "2018-02-13T14:00:00Z"
 title: "Getting cultured, on a dime"
-tags: ["writing", "visual"]
+tags: ["writing"]
 category: "explorations"
 ---
 

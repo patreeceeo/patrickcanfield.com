@@ -1,24 +1,24 @@
 import React from 'react';
 import IndexPage from '../../components/index-page';
-import Tabs from '../../components/tags-tabs';
+import FilterPosts from '../../components/filter-posts';
 
-const VisualIndex = ({data}) => {
+const ArtIndex = ({data}) => {
     return (
         <IndexPage
             data={data}
         >
-            <Tabs selected="visual"/>
+            <FilterPosts selected="art"/>
         </IndexPage>
     );
 };
 
-export default VisualIndex;
+export default ArtIndex;
 
 export const pageQuery = graphql`
-  query VisualQuery {
+  query ArtQuery {
     allMarkdownRemark(
         sort: { order: DESC, fields: [frontmatter___date] }
-        filter: { frontmatter: { tags: { in: ["visual"] } } }
+        filter: { frontmatter: { tags: { in: ["art"] } } }
     ) {
       edges {
         node {

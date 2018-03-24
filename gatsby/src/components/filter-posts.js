@@ -14,7 +14,7 @@ class Filter extends React.Component {
                 <Tabs.Child
                     linkTo="/tags/writing" selected={selected === "writing"}>writing</Tabs.Child>
                 <Tabs.Child
-                    linkTo="/tags/visual" selected={selected === "visual"}>visual</Tabs.Child>
+                    linkTo="/tags/art" selected={selected === "art"}>art</Tabs.Child>
             </Tabs.Parent>
         );
     }
