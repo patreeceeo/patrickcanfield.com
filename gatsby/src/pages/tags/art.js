@@ -7,7 +7,7 @@ const ArtIndex = ({data}) => {
         <IndexPage
             data={data}
         >
-            <FilterPosts selected="art"/>
+            <FilterPosts query={{tag: 'art'}}/>
         </IndexPage>
     );
 };

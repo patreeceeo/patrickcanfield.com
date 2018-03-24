@@ -1,13 +1,13 @@
 import React from 'react';
 import IndexPage from '../components/index-page';
-import Tabs from '../components/tags-tabs';
+import FilterPosts from '../components/filter-posts';
 
-const AllIndex = ({data}) => {
+const AllIndex = ({data, location}) => {
     return (
         <IndexPage
             data={data}
         >
-            <Tabs selected="all"/>
+            <FilterPosts />
         </IndexPage>
     );
 };
