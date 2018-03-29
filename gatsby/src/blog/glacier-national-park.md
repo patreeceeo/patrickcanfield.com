@@ -2,7 +2,7 @@
 path: "/blog/2017/10/29/glacier"
 date: "2017-10-30T17:18:00Z"
 title: "Glacier National Park"
-category: "exploration"
+category: "explorations"
 tags: ["writing"]
 ---
 
