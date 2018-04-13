@@ -5,7 +5,6 @@ module.exports = {
         siteUrl: `https://patrickcanfield.com`
     },
     plugins: [
-        `gatsby-plugin-sharp`, // for gatsby-remark-images
         `gatsby-plugin-react-helmet`,
         {
 
@@ -74,6 +73,8 @@ module.exports = {
                 name: 'pages',
             },
         },
+        // `gatsby-plugin-sharp`, // for gatsby-remark-images
+        // `gatsby-transformer-sharp`, // for gatsby-remark-images
         {
             resolve: 'gatsby-transformer-remark',
             options: {
