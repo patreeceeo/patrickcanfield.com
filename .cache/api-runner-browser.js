@@ -1,8 +1,8 @@
 var plugins = [{
-      plugin: require('/Users/patrick/codez/patrickcanfield.com/node_modules/gatsby-plugin-typography/gatsby-browser.js'),
+      plugin: require('/Users/patrick/codez/patrickcanfield.com/node_modules/gatsby-plugin-typography/gatsby-browser'),
       options: {"plugins":[],"pathToConfigModule":"src/utils/typography.js"},
     },{
-      plugin: require('/Users/patrick/codez/patrickcanfield.com/node_modules/gatsby-plugin-google-analytics/gatsby-browser.js'),
+      plugin: require('/Users/patrick/codez/patrickcanfield.com/node_modules/gatsby-plugin-google-analytics/gatsby-browser'),
       options: {"plugins":[],"trackingId":"UA-109095087-1"},
     }]
 // During bootstrap, we write requires at top of this file which looks
