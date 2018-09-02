@@ -1,4 +1,4 @@
-.Credits {
+.Footer {
   font-size: 0.8rem;
   text-align: center;
   margin: 4rem 0.5rem 0.5rem;
@@ -6,7 +6,15 @@
   line-height: 1rem;
 }
 
-.Credits img {
+.Footer img {
   height: 1rem;
   vertical-align: middle;
+}
+
+.Footer ul {
+  list-style-type: none;
+}
+
+.Footer li {
+  margin-bottom: 0;
 }

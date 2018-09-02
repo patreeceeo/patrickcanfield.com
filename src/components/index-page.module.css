@@ -19,6 +19,12 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-bottom: 0;
+}
+
+.Subtitle {
+  color: #888;
+  margin-bottom: 0;
 }
 
 .PostPreview {

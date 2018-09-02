@@ -1,4 +1,7 @@
 var plugins = [{
+      plugin: require('/Users/patrick/codez/patrickcanfield.com/node_modules/gatsby-plugin-typography/gatsby-browser.js'),
+      options: {"plugins":[],"pathToConfigModule":"src/utils/typography.js"},
+    },{
       plugin: require('/Users/patrick/codez/patrickcanfield.com/node_modules/gatsby-plugin-google-analytics/gatsby-browser.js'),
       options: {"plugins":[],"trackingId":"UA-109095087-1"},
     }]
