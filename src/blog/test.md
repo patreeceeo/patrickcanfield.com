@@ -6,4 +6,4 @@ tags: ["art"]
 category: "life, the universe and everything"
 ---
 
-It really works!!!
+It really works!
