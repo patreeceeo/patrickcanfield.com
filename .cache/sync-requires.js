@@ -8,7 +8,9 @@ exports.layouts = {
 
 exports.components = {
   "component---src-templates-blog-post-js": preferDefault(require("/Users/patrick/codez/patrickcanfield.com/src/templates/blog-post.js")),
+  "component---cache-dev-404-page-js": preferDefault(require("/Users/patrick/codez/patrickcanfield.com/.cache/dev-404-page.js")),
   "component---src-pages-404-js": preferDefault(require("/Users/patrick/codez/patrickcanfield.com/src/pages/404.js")),
+  "component---src-pages-computery-js": preferDefault(require("/Users/patrick/codez/patrickcanfield.com/src/pages/computery.js")),
   "component---src-pages-index-js": preferDefault(require("/Users/patrick/codez/patrickcanfield.com/src/pages/index.js")),
   "component---src-pages-resume-js": preferDefault(require("/Users/patrick/codez/patrickcanfield.com/src/pages/resume.js")),
   "component---src-pages-soshmeds-js": preferDefault(require("/Users/patrick/codez/patrickcanfield.com/src/pages/soshmeds.js")),
@@ -42,7 +44,9 @@ exports.json = {
   "blog-2017-11-22-how-come-vs-what-for.json": require("/Users/patrick/codez/patrickcanfield.com/.cache/json/blog-2017-11-22-how-come-vs-what-for.json"),
   "blog-2018-3-29-fostering-creativity-excelsior.json": require("/Users/patrick/codez/patrickcanfield.com/.cache/json/blog-2018-3-29-fostering-creativity-excelsior.json"),
   "blog-2017-11-26-bikesgiving-2017.json": require("/Users/patrick/codez/patrickcanfield.com/.cache/json/blog-2017-11-26-bikesgiving-2017.json"),
+  "dev-404-page.json": require("/Users/patrick/codez/patrickcanfield.com/.cache/json/dev-404-page.json"),
   "404.json": require("/Users/patrick/codez/patrickcanfield.com/.cache/json/404.json"),
+  "computery.json": require("/Users/patrick/codez/patrickcanfield.com/.cache/json/computery.json"),
   "index.json": require("/Users/patrick/codez/patrickcanfield.com/.cache/json/index.json"),
   "resume.json": require("/Users/patrick/codez/patrickcanfield.com/.cache/json/resume.json"),
   "soshmeds.json": require("/Users/patrick/codez/patrickcanfield.com/.cache/json/soshmeds.json"),
