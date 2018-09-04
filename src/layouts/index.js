@@ -71,7 +71,7 @@ const TemplateWrapper = ({ children }) => (
       </p>
 
       <p>
-        Proudly built with <img src={gatsbyImg}/> <a href="https://www.gatsbyjs.org">Gatsby</a> and hosted on <img src={doLogoImg}/> <a href="http://digitalocean.com/">Digital Ocean</a>
+        Proudly built with <img src={gatsbyImg}/> <a href="https://www.gatsbyjs.org">Gatsby</a> and hosted on <img src={doLogoImg}/> <a href="http://digitalocean.com/">Digital Ocean.</a>
           <div><sub>Copyright &copy; 2018 Patrick Canfield</sub></div>
       </p>
     </div>
