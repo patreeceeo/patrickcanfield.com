@@ -9,6 +9,7 @@ class Portfolio extends React.Component {
           <p>Click <Link to='/'>here</Link> to check out my blog.</p>
           <p>Click <Link to='/boggle'>here</Link> to play my version of Boggle.</p>
           <p>Click <Link to='/blog/2018/2/13/art-in-tenderloin/'>here</Link> to see a project I did with Mapbox.</p>
+          <p>Click <Link to='https://patreeceeo.github.io/scatterplot-with-stepper-example/'>here</Link> to graphically interact with some data.</p>
         </div>
       );
     }
