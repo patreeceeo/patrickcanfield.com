@@ -4,7 +4,7 @@ import Link from 'gatsby-link';
 import Helmet from 'react-helmet';
 import * as icons from '../favicons/index';
 import meImg from '../me-np.png';
-import neocitiesImg from '../neocities-logo.png';
+import doLogoImg from '../digitalocean-logo.svg';
 import gatsbyImg from '../gatsby-logo.svg';
 
 import './normalize.css';
@@ -71,7 +71,7 @@ const TemplateWrapper = ({ children }) => (
       </p>
 
       <p>
-        Proudly built with <img src={gatsbyImg}/> <a href="https://www.gatsbyjs.org">Gatsby</a> and hosted by <img src={neocitiesImg} /> <a href="https://neocities.org/site/patrickcan">Neocities</a>
+        Proudly built with <img src={gatsbyImg}/> <a href="https://www.gatsbyjs.org">Gatsby</a> and hosted on <img src={doLogoImg}/> <a href="http://digitalocean.com/">Digital Ocean</a>
           <div><sub>Copyright &copy; 2018 Patrick Canfield</sub></div>
       </p>
     </div>
