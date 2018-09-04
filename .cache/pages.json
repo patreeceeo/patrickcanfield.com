@@ -31,13 +31,6 @@
         "componentChunkName": "component---src-templates-blog-post-js",
         "layout": "layout---index",
         "layoutComponentChunkName": "component---src-layouts-index-js",
-        "jsonName": "blog-2018-7-2.json",
-        "path": "/blog/2018/7/2"
-    },
-    {
-        "componentChunkName": "component---src-templates-blog-post-js",
-        "layout": "layout---index",
-        "layoutComponentChunkName": "component---src-layouts-index-js",
         "jsonName": "blog-2018-7-3.json",
         "path": "/blog/2018/7/3"
     },
