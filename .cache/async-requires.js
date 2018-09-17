@@ -3,7 +3,6 @@ const preferDefault = m => m && m.default || m
 
 exports.components = {
   "component---src-templates-blog-post-js": require("gatsby-module-loader?name=component---src-templates-blog-post-js!/Users/patrick/codez/patrickcanfield.com/src/templates/blog-post.js"),
-  "component---cache-dev-404-page-js": require("gatsby-module-loader?name=component---cache-dev-404-page-js!/Users/patrick/codez/patrickcanfield.com/.cache/dev-404-page.js"),
   "component---src-pages-404-js": require("gatsby-module-loader?name=component---src-pages-404-js!/Users/patrick/codez/patrickcanfield.com/src/pages/404.js"),
   "component---src-pages-computery-js": require("gatsby-module-loader?name=component---src-pages-computery-js!/Users/patrick/codez/patrickcanfield.com/src/pages/computery.js"),
   "component---src-pages-index-js": require("gatsby-module-loader?name=component---src-pages-index-js!/Users/patrick/codez/patrickcanfield.com/src/pages/index.js"),
@@ -38,7 +37,6 @@ exports.json = {
   "blog-2017-11-22-how-come-vs-what-for.json": require("gatsby-module-loader?name=path---blog-2017-11-22-how-come-vs-what-for!/Users/patrick/codez/patrickcanfield.com/.cache/json/blog-2017-11-22-how-come-vs-what-for.json"),
   "blog-2018-3-29-fostering-creativity-excelsior.json": require("gatsby-module-loader?name=path---blog-2018-3-29-fostering-creativity-excelsior!/Users/patrick/codez/patrickcanfield.com/.cache/json/blog-2018-3-29-fostering-creativity-excelsior.json"),
   "blog-2017-11-26-bikesgiving-2017.json": require("gatsby-module-loader?name=path---blog-2017-11-26-bikesgiving-2017!/Users/patrick/codez/patrickcanfield.com/.cache/json/blog-2017-11-26-bikesgiving-2017.json"),
-  "dev-404-page.json": require("gatsby-module-loader?name=path---dev-404-page!/Users/patrick/codez/patrickcanfield.com/.cache/json/dev-404-page.json"),
   "404.json": require("gatsby-module-loader?name=path---404!/Users/patrick/codez/patrickcanfield.com/.cache/json/404.json"),
   "computery.json": require("gatsby-module-loader?name=path---computery!/Users/patrick/codez/patrickcanfield.com/.cache/json/computery.json"),
   "index.json": require("gatsby-module-loader?name=path---index!/Users/patrick/codez/patrickcanfield.com/.cache/json/index.json"),
