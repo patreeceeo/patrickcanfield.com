@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Boggle!</title>
+
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="boggle.css">
+  <link rel="stylesheet" href="boggle.theme.Sun.css" id="visual-theme-css-link">
+
+  <script type="text/javascript" src="lib/jquery-2.1.1.js"></script>
+  <script type="text/javascript" src="lib/underscore.js"></script>
+  <script type="text/javascript" src="lib/backbone.js"></script>
+
+  <!-- include source files here... -->
+  <script type="text/javascript" src="boggle.js"></script>
+  <script type="text/javascript" src="boggle.models.js"></script>
+  <script type="text/javascript" src="boggle.views.js"></script>
+  <script type="text/javascript" src="boggle.master-word-list.en.js"></script>
+  <script type="text/javascript" src="game.js"></script>
+
+</head>
+
+<body>
+<div id="game"></div>
+<div id="help" class="u-scrollContainer">
+  <h2>How to play</h2>
+  <pre>
+    p t a n
+    h r l y
+    y d a d
+    m f d g
+  </pre>
+  <p>
+    Above: an example field of play
+  </p>
+  <p>Boggle tests your vocabulary and your ability to read alphabet soup. The goal is to find as many words as possible in an arrangement of letters, like the one above, before the time runs out. The letters may be horizontal, vertical or diagonal from each other, but no space can be used more than once in the same word. To record a word, type it and press ENTER.</p>
+  <h2>Scoring</h2>
+  <p>More letters, more points. Words must have at least 3 letters.</p>
+  <pre>
+     Letters   | Points
+    --------------------
+     1 to 2    | 0
+     3 to 4    | 1
+     5         | 2
+     6         | 3
+     7         | 5
+     8+        | 11
+  </pre>
+  <p>Example: For the above arrangement, you can play "HYDRA" for 2 points.</p>
+  <br>
+  <br>
+  <br>
+  <h2>Not-so-secret secrets</h2>
+  <ul>
+  <li>Type ".p" to pause the game</li>
+  <li>Type ".buzzer" to end the game</li>
+  <li>Move the mouse over a word to see where it is on the board</li>
+  </ul>
+  <br>
+  <br>
+</div>
+</body>
+</html>
