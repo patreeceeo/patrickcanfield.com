@@ -1,7 +1,7 @@
 this.boggle = this.boggle || {};
 
 (function(boggle) {
-  "use strict";  
+  "use strict";
   boggle.options = {
     grid: {
       width: 4,
@@ -133,20 +133,20 @@ this.boggle = this.boggle || {};
     var retval = [];
     this.forEach(potentialWordCubes, function (potentialWordCubesForLetter, letterIndex) {
       return this.forEach(potentialWordCubesForLetter.cubeIndexes, function (cubeIndex) {
-        if(!((1 << cubeIndex) & usedbits) && 
+        if(!((1 << cubeIndex) & usedbits) &&
           (startCubeIndex == null || this._adjacencyMap[startCubeIndex][cubeIndex] == 1)) {
-          usedbits |= 1 << cubeIndex;
-          if(potentialWordCubes.length === 1) {
-            retval.unshift(cubeIndex);
-          } else {
-            retval = this._findPathRecursively(
-              potentialWordCubes.slice(letterIndex + 1), 
-              usedbits,
-              cubeIndex
-            );
-            retval.unshift(cubeIndex);
-            return retval;
-          }
+            usedbits |= 1 << cubeIndex;
+            if(potentialWordCubes.length === 1) {
+              retval.unshift(cubeIndex);
+            } else {
+              retval = this._findPathRecursively(
+                potentialWordCubes.slice(letterIndex + 1),
+                usedbits,
+                cubeIndex
+              );
+              retval.unshift(cubeIndex);
+              return retval;
+            }
         }
       }) || [];
     });
