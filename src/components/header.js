@@ -7,9 +7,13 @@ const Header = ({children}) => {
         <div className={css.Header}>
             <a href="https://patrickcanfield.com"><img src={meImg} className={css.Header_photo} /></a>
             <div>
-                <h2 className={css.Title}>Patrick Canfield</h2>
-                <h3 className={css.Subtitle}>@patreeceeo</h3>
+              <div className={css.Names}>
+                  <h2>Patrick Canfield</h2>
+                  <h3>@patreeceeo</h3>
+              </div>
+              <div className={css.Blurb}>
                 {children}
+              </div>
             </div>
         </div>
     );

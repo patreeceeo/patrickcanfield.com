@@ -15,16 +15,26 @@
   margin-right: 1rem;
 }
 
-.Title {
+.Names {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Names h2 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 0;
 }
 
-.Subtitle {
+.Names h3 {
   color: #888;
   margin-bottom: 0;
+}
+
+.Blurb {
+
 }
 
 .PostPreview {
