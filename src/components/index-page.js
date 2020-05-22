@@ -33,7 +33,6 @@ const IndexPage = ({data, children}) => (
         <Header>
             {children}
         </Header>
-        <h3>recent posts</h3>
         <Posts data={data} />
     </div>
 );
