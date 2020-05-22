@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'gatsby-link';
 import Helmet from 'react-helmet';
 import * as icons from '../favicons/index';
 import meImg from '../me-np.png';
-import doLogoImg from '../digitalocean-logo.svg';
-import gatsbyImg from '../gatsby-logo.svg';
 
 import './normalize.css';
 import './global.css';
@@ -18,7 +15,7 @@ const TemplateWrapper = ({ children }) => (
       defaultTitle="Patrick Canfield"
       meta={[
         { name: 'description', content: 'Personal site of Patrick Canfield' },
-        { name: 'keywords', content: 'blog personal art technology philosophy food travel' },
+        { name: 'keywords', content: 'blog personal art technology philosophy travel' },
       ]}
     >
         <link rel="apple-touch-icon" sizes="180x180" href={icons.appleTouch}/>
@@ -56,23 +53,12 @@ const TemplateWrapper = ({ children }) => (
       {children()}
     </div>
     <div className={css.Footer}>
-      <p>
-        <a href="https://xn--sr8hvo.ws/💇/previous">←</a>
-        An IndieWeb Webring 🕸💍 site
-        <a href="https://xn--sr8hvo.ws/💇/next">→</a>
-      </p>
 
       <p>
         When was the last time you played &mdash;
         <ul>
           <li><a href="/boggle">&mdash; a puzzle?</a></li>
-          <li>&mdash; a platformer? (WIP)</li>
         </ul>
-      </p>
-
-      <p>
-        Proudly built with <img src={gatsbyImg}/> <a href="https://www.gatsbyjs.org">Gatsby</a> and hosted on <img src={doLogoImg}/> <a href="http://digitalocean.com/">Digital Ocean.</a>
-          <div><sub>Copyright &copy; 2018 Patrick Canfield</sub></div>
       </p>
     </div>
   </div>
