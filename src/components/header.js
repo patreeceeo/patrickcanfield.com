@@ -9,7 +9,6 @@ const Header = ({children}) => {
             <div>
               <div className={css.Names}>
                   <h2>Patrick Canfield</h2>
-                  <h3>@patreeceeo</h3>
               </div>
               <div className={css.Blurb}>
                 {children}
