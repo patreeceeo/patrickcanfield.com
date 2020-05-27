@@ -1,5 +1,5 @@
 ---
-path: "/blog/2020/consuming-art-is-creative"
+path: "/blog/2020/consuming-art-creative"
 date: "2020-05-27T00:00:00Z"
 title: "Breaking down the false artist/non-artist dichotomy"
 tags: ["writing"]
