@@ -1,6 +1,5 @@
-
 ---
-path: "/blog/2020/10/24"
+path: "/blog/2020/10/24/mt-tam-overnight-bicycle"
 date: "2020-10-24T00:00:00Z"
 title: "Mt Tam Overnight Bicycle"
 tags: []
@@ -15,7 +14,7 @@ Gunmetal grey fighter jets in formation traverse the blue sky above the Golden G
 ![](./silence-sign.JPG)
 ![](./thanks-sign.JPG)
 
-Mt Tam is before me, a great green monster. My adversary. But also my friend who’s only an adversary in the game we’re engaged in presently. What counts in this game is not achieving whatever goals I have in mind, but venturing out with pretenses of Arete. I’m here for whatever adventure he has in store for me. If the park ranger at Pantoll campground tells me there’s no room for me, or my bike or body fail on the way, I’ll welcome the challenge. I ride past signs thanking firefighters and first responders. The real heroes, without which I might not be able to have this adventure. I felt a buoyant sense of oneness as the forest gave way to sweeping views of Marin, the Bay and the City, ready for a plot twist as I draw near to Pantoll Campground. The sign in front reads we’re full, no more space.
+Mt Tam is before me, a great green monster. My adversary. But also my friend who’s only an adversary in the game we’re engaged in presently. What counts in this game is not achieving whatever goals I have in mind, but venturing out with pretenses of _Arete_. I’m here for whatever adventure he has in store for me. If the park ranger at Pantoll campground tells me there’s no room for me, or my bike or body fail on the way, I’ll welcome the challenge. I ride past signs thanking firefighters and first responders. The real heroes, without which I might not be able to have this adventure. I felt a buoyant sense of oneness as the forest gave way to sweeping views of Marin, the Bay and the City, ready for a plot twist as I draw near to Pantoll Campground. The sign in front reads we’re full, no more space.
 
 ![](./arrived-camp-bike.JPG)
 
