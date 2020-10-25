@@ -35,4 +35,4 @@ A kiosk cafe is miraculously open when I arrive at Stinson beach, as if just for
 ![Golden gate bridge in marine layer](./gg-bridge-marine-layer.JPG)
 ![Obligatory bike photo at end of trip, Golden Gate Bridge in background](./finishing-bike.JPG)
 
-I return to the city just in time to take part in a socially-distanced-with-masks demonstration of how everyone can access Golden Gate Park without needing to re-open more of it’s roads to cars. A colorful crew of cyclists and roller skaters gather in front of the de Young art museum. After we’re all gathered we ride around and wave, ring bells and pump out the jams. I like to think that I brought something back with me that somehow helped the cause.
+I return to the city just in time to take part in a socially-distanced-with-masks demonstration of how everyone can access Golden Gate Park without needing to re-open more of its roads to cars. A colorful crew of cyclists and roller skaters gather in front of the de Young art museum. After we’re all gathered we ride around and wave, ring bells and pump out the jams. I like to think that I brought something back with me that somehow helped the cause.
