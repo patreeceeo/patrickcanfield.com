@@ -55,7 +55,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "gatsby": "^1.9.277",
+    "gatsby": "^5.3.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.3.0",
     "prettier": "^1.7.4",
